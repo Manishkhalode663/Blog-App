@@ -1,16 +1,64 @@
 const Blog = require('../models/Blog');
 
 // Logic to get all blogs
+// Logic to get all blogs with Search & Filter
 const getBlogs = async (req, res) => {
   try {
-    const limit = parseInt(req.query.limit) || 0;
-    const blogs = await Blog.find({ status: 'published' }).sort({ createdAt: -1 }).limit(limit);
-    const totalBlogs = await Blog.countDocuments({ status: 'published' });
+    // 1. Extract Query Parameters
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 9; // Default 9 blogs per page
+    const search = req.query.search || '';
+    const category = req.query.category || '';
+    const tag = req.query.tag || '';
+
+    // 2. Build Query Object
+    let query = { status: 'published' };
+
+    // A. Search Logic (using the text index we created)
+    if (search) {
+      query.$text = { $search: search };
+    }
+
+    // B. Filter by Category
+    if (category) {
+      query.category = category;
+    }
+
+    // C. Filter by Tag
+    if (tag) {
+      query.tags = tag; // Matches if 'tag' is present in the tags array
+    }
+
+    // 3. Calculate Pagination (Skip)
+    const skip = (page - 1) * limit;
+
+    // 4. Fetch Data
+    let blogsPromise = Blog.find(query);
+
+    // D. Sorting Logic
+    if (search) {
+      // If searching, sort by "Relevance" (Text Score)
+      blogsPromise = blogsPromise.sort({ score: { $meta: 'textScore' } });
+    } else {
+      // Otherwise, sort by Newest First
+      blogsPromise = blogsPromise.sort({ createdAt: -1 });
+    }
+
+    const blogs = await blogsPromise.skip(skip).limit(limit);
+    
+    // 5. Get Total Count (for pagination UI)
+    const totalDocs = await Blog.countDocuments(query);
 
     return res.json({
-      results: blogs,
-      total: totalBlogs
+      data: blogs,
+      meta: {
+        total: totalDocs,
+        page: page,
+        limit: limit,
+        totalPages: Math.ceil(totalDocs / limit)
+      }
     });
+
   } catch (err) {
     console.error("Error in getBlogs:", err);
     return res.status(500).json({
@@ -20,6 +68,34 @@ const getBlogs = async (req, res) => {
     });
   }
 };
+// const getBlogs = async (req, res) => { 
+//   try {
+//     const page = parseInt(req.query.page) || 1;
+//     const limit = parseInt(req.query.limit) || 10;
+//     const skip = (page - 1) * limit;
+
+//     const blogs = await Blog.find({ status: 'published' })
+//       .sort({ createdAt: -1 })
+//       .skip(skip)
+//       .limit(limit);
+
+//     const total = await Blog.countDocuments({ status: 'published' });
+
+//     return res.json({
+//       results: blogs,
+//       currentPage: page,
+//       totalPages: Math.ceil(total / limit),
+//       total
+//     });
+//   } catch (err) {
+//     console.error("Error in getBlogs:", err);
+//     return res.status(500).json({
+//       code: 'INTERNAL_SERVER_ERROR',
+//       message: 'Failed to fetch blogs',
+//       details: err.message
+//     });
+//   }
+// };
 
 const getBlogById = async (req, res) => {
   try {

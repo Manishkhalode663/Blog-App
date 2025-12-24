@@ -1,7 +1,11 @@
 import axios from 'axios';
 
 // 1. Set your backend URL (Adjust localhost port as needed, e.g., 8000 for Django, 5000 for Node)
-const BASE_URL = 'http://localhost:5000/api/blogs/';
+// const BASE_URL = 'http://localhost:5000/api/blogs/';
+
+// blogApi.js
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 
 // 2. Create an axios instance
 const api = axios.create({
@@ -26,15 +30,25 @@ export const blogsApi = {
         }
     }, 
 
-    getAll: async () => {
+    getAll: async (params = {}) => { 
         try {
-            const response = await api.get('/');
+            // params object : { page: 1, limit: 10, search: 'react', category: 'Tech' }
+            const response = await api.get('/', { params });
             return response.data;
         } catch (error) {
             console.error("Error fetching blogs:", error);
             throw error;
         }
     },
+    // getAll: async () => {
+    //     try {
+    //         const response = await api.get('/');
+    //         return response.data;
+    //     } catch (error) {
+    //         console.error("Error fetching blogs:", error);
+    //         throw error;
+    //     }
+    // },
 
     // Get a single blog by ID
     getById: async (id) => {

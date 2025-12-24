@@ -15,6 +15,8 @@ import {
   CardMedia,
   CardContent,
   Paper,
+  useTheme,
+  alpha
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
@@ -26,6 +28,7 @@ import { blogsApi } from '../api/blogApi';
 const SingleBlog = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const theme = useTheme();
 
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -48,7 +51,7 @@ const SingleBlog = () => {
     fetchBlog();
   }, [id]);
 
-  // --- Loading State (Skeleton) ---
+  // --- Loading State ---
   if (loading) {
     return (
       <Container maxWidth="md" sx={{ py: 8 }}>
@@ -87,7 +90,7 @@ const SingleBlog = () => {
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh', pb: 8 }}>
 
-      {/* 1. Top Navigation Bar */}
+      {/* 1. Top Navigation */}
       <Container maxWidth="md" sx={{ py: 3 }}>
         <Button
           startIcon={<ArrowBackIcon />}
@@ -101,18 +104,28 @@ const SingleBlog = () => {
       {/* 2. Header Section */}
       <Container maxWidth="md">
         <Chip
-          label={blog.category}
+          label={blog.category || 'General'}
           sx={{
-            bgcolor: 'primary.light',
-            color: 'primary.dark',
-            fontWeight: 600,
+            bgcolor: alpha(theme.palette.primary.main, 0.1),
+            color: 'primary.main',
+            fontWeight: 700,
             mb: 3,
             fontSize: '0.875rem',
             height: 28,
           }}
         />
 
-        <Typography variant="h3" component="h1" fontWeight={800} gutterBottom sx={{ lineHeight: 1.2, fontSize: { xs: '2rem', md: '3rem' } }}>
+        <Typography 
+            variant="h3" 
+            component="h1" 
+            fontWeight={800} 
+            gutterBottom 
+            sx={{ 
+                lineHeight: 1.2, 
+                fontSize: { xs: '2rem', md: '3rem' },
+                color: 'text.primary'
+            }}
+        >
           {blog.title}
         </Typography>
 
@@ -131,14 +144,14 @@ const SingleBlog = () => {
           <Stack direction="row" alignItems="center" spacing={2}>
             <Avatar src={blog.authorAvatar} sx={{ width: 48, height: 48 }} />
             <Box>
-              <Typography variant="subtitle1" fontWeight={600}>
+              <Typography variant="subtitle1" fontWeight={600} color="text.primary">
                 {blog.author}
               </Typography>
               <Stack direction="row" spacing={2} color="text.secondary">
                 <Stack direction="row" alignItems="center" spacing={0.5}>
                   <CalendarTodayIcon sx={{ fontSize: 16 }} />
                   <Typography variant="caption">
-                    {new Date(blog.createdAt).toLocaleDateString()}
+                    {blog.createdAt ? new Date(blog.createdAt).toLocaleDateString() : 'Unknown'}
                   </Typography>
                 </Stack>
                 <Stack direction="row" alignItems="center" spacing={0.5}>
@@ -150,15 +163,15 @@ const SingleBlog = () => {
           </Stack>
 
           <Stack direction="row" spacing={1}>
-            <IconButton><ShareIcon /></IconButton>
-            <IconButton><BookmarkBorderIcon /></IconButton>
+            <IconButton sx={{ color: 'text.secondary' }}><ShareIcon /></IconButton>
+            <IconButton sx={{ color: 'text.secondary' }}><BookmarkBorderIcon /></IconButton>
           </Stack>
         </Stack>
       </Container>
 
       {/* 3. Hero Image */}
       <Container maxWidth="md" sx={{ mb: 6 }}>
-        <Card elevation={0} sx={{ borderRadius: 4, overflow: 'hidden' }}>
+        <Card elevation={0} sx={{ borderRadius: 4, overflow: 'hidden', boxShadow: theme.shadows[4] }}>
           <CardMedia
             component="img"
             src={blog.image}
@@ -172,26 +185,33 @@ const SingleBlog = () => {
         </Card>
       </Container>
 
-      {/* 4. Blog Body Content - ENHANCED STYLING */}
+      {/* 4. Blog Body Content */}
       <Container maxWidth="md">
-        <Paper elevation={0} sx={{ p: { xs: 3, md: 5 }, borderRadius: 4, bgcolor: 'background.paper' }}>
+        <Paper 
+            elevation={0} 
+            sx={{ 
+                p: { xs: 3, md: 5 }, 
+                borderRadius: 4, 
+                bgcolor: 'background.paper',
+                boxShadow: theme.shadows[1]
+            }}
+        >
           <Box
             sx={{
               color: 'text.primary',
               lineHeight: 1.8,
               fontSize: '1.125rem',
-              fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
-              wordSpacing: '0.05em',
+              fontFamily: '"Inter", "Roboto", "sans-serif"',
               overflowWrap: 'break-word',
 
-              // Images inside content
+              // Images
               '& img': {
                 maxWidth: '100%',
                 height: 'auto',
                 borderRadius: 3,
                 my: 4,
                 display: 'block',
-                boxShadow: '0 10px 25px rgba(0,0,0,0.08)',
+                boxShadow: theme.shadows[3],
               },
 
               // Headings
@@ -202,50 +222,45 @@ const SingleBlog = () => {
                 mb: 2,
                 lineHeight: 1.3,
               },
-              '& h1': { fontSize: '2.25rem' },
-              '& h2': { fontSize: '1.875rem' },
-              '& h3': { fontSize: '1.5rem' },
 
-              // Paragraphs & Links
-              '& p': { mb: 1 },
+              // Links
               '& a': {
-                color: '#0ea5e9',
+                color: 'primary.main',
                 textDecoration: 'underline',
                 fontWeight: 500,
-                '&:hover': { color: '#0284c7' },
+                '&:hover': { color: 'primary.dark' },
               },
 
               // Lists
               '& ul, & ol': { pl: 5, mb: 3 },
               '& li': { mb: 1.5 },
 
-              // Blockquotes
+              // Blockquotes - Dynamic Styling
               '& blockquote': {
-                borderLeft: '4px solid #0ea5e9',
+                borderLeft: `4px solid ${theme.palette.primary.main}`,
                 pl: 4,
                 fontStyle: 'italic',
-                color: '#4b5563',
+                color: 'text.secondary',
                 my: 4,
                 py: 2,
-                bgcolor: '#f0f9ff',
+                bgcolor: alpha(theme.palette.primary.main, 0.05),
                 borderRadius: 2,
               },
 
               // Code Blocks
               '& pre': {
-                bgcolor: '#1e293b',
-                color: '#e2e8f0',
+                bgcolor: theme.palette.mode === 'dark' ? '#111' : '#2d2d2d',
+                color: '#f8f8f2',
                 p: 3,
                 borderRadius: 3,
                 overflowX: 'auto',
                 fontFamily: '"Fira Code", monospace',
                 fontSize: '0.9rem',
                 my: 3,
-                boxShadow: '0 8px 20px rgba(0,0,0,0.15)',
               },
               '& code': {
-                bgcolor: '#e0f2fe',
-                color: '#0c4a6e',
+                bgcolor: alpha(theme.palette.primary.main, 0.1),
+                color: 'primary.dark',
                 px: 1,
                 py: 0.5,
                 borderRadius: 1,
@@ -260,20 +275,14 @@ const SingleBlog = () => {
         {/* Tags Section */}
         {blog.tags && blog.tags.length > 0 && (
           <Box sx={{ mt: 5 }}>
-            <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+            <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap sx={{ gap: 1 }}>
               {blog.tags.map((tag, index) => (
                 <Chip
                   key={index}
                   label={tag}
                   variant="outlined"
-                  size="large"
                   color='primary'
-                  sx={{
-                    borderColor: 'grey.300',
-                    color: 'text.secondary',
-                    fontWeight: 500,
-                    '&:hover': { borderColor: 'primary.main', color: 'primary.dark' },
-                  }}
+                  sx={{ fontWeight: 500 }}
                 />
               ))}
             </Stack>
@@ -282,13 +291,21 @@ const SingleBlog = () => {
 
         <Divider sx={{ my: 6 }} />
 
-        {/* 5. Author Bio (Bottom) */}
-        <Card elevation={0} sx={{ bgcolor: '#f0f9ff', p: 4, borderRadius: 3 }}>
+        {/* 5. Author Bio */}
+        <Card 
+            elevation={0} 
+            sx={{ 
+                bgcolor: alpha(theme.palette.primary.main, 0.05), 
+                p: 4, 
+                borderRadius: 3,
+                border: `1px solid ${alpha(theme.palette.primary.main, 0.1)}`
+            }}
+        >
           <CardContent sx={{ p: 0 }}>
             <Stack direction="row" spacing={3} alignItems="center">
               <Avatar src={blog.authorAvatar} sx={{ width: 72, height: 72 }} />
               <Box>
-                <Typography variant="h6" fontWeight={700} gutterBottom>
+                <Typography variant="h6" fontWeight={700} gutterBottom color="text.primary">
                   About {blog.author}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
@@ -303,4 +320,4 @@ const SingleBlog = () => {
   );
 }
 
-export default SingleBlog;
+export default SingleBlog; 

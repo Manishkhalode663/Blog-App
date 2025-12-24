@@ -1,23 +1,53 @@
-import React from 'react'
+import React, { useState } from 'react';
+import { Outlet } from 'react-router-dom';
+import { Box, Toolbar, useTheme } from '@mui/material';
+import Sidebar from '../admin/Sidebar';
+import Topbar from '../admin/Topbar';
+
+const drawerWidth = 280;
 
 const DashboardLayout = () => {
-  return ( 
-      <Router> 
-        <AuthProvider>
-           
-          <Sidebar />
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const theme = useTheme();
 
-        <Routes> 
-          <Route element={<ProtectedRoute />}>
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/create" element={<CreateBlog />} />
-          </Route>
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
 
-        </Routes>
+  return (
+    <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: 'background.default' }}>
+      
+      {/* 1. Top Navigation Bar */}
+      <Topbar drawerWidth={drawerWidth} handleDrawerToggle={handleDrawerToggle} />
 
-      </AuthProvider>
-    </Router>
-  )
-}
+      {/* 2. Sidebar (Drawer) */}
+      <Sidebar 
+        drawerWidth={drawerWidth} 
+        mobileOpen={mobileOpen} 
+        handleDrawerToggle={handleDrawerToggle} 
+      />
 
-export default DashboardLayout
+      {/* 3. Main Content Area */}
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          p: 3,
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          transition: theme.transitions.create(['margin', 'width'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+          }),
+        }}
+      >
+        {/* Spacer to push content below fixed AppBar */}
+        <Toolbar /> 
+        
+        {/* Renders the child route (DashboardHome, CreateBlog, etc.) */}
+        <Outlet /> 
+      </Box>
+    </Box>
+  );
+};
+
+export default DashboardLayout;

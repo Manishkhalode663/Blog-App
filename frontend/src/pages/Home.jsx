@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Typography,
   Container,
@@ -10,63 +10,59 @@ import {
   Box,
   Chip,
   Stack,
-  AppBar,
-  Toolbar,
-  IconButton,
-  Avatar,
-  Divider
+  Accordion, AccordionSummary, AccordionDetails,
+  useTheme
 } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'; 
 import NewsLetter from '../components/NewsLetter';
 import { blogsApi } from '../api/blogApi';
-import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import Faq from '../components/Faq';
 
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
   const navigate = useNavigate();
+  const theme = useTheme();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Call the API function to get featured blogs
-        const data = await blogsApi.getFeaturedBlogs(6);
-        setBlogs(data.results? data.results:[]); 
+        const data = await blogsApi.getAll({ limit: 6 });
+        const results = data.results || data.data || [];
+        setBlogs(results);
       } catch {
         console.error("Failed to load blogs");
       }
     };
-
     fetchData();
   }, []);
- 
-
 
   return (
-    <>
-      <Container maxWidth="lg" sx={{ mt: 4, mb: 8 }}>
+    <Box sx={{ bgcolor: 'background.default', minHeight: '100vh', pb: 8 }}>
+      <Container maxWidth="lg" sx={{ pt: 4 }}>
 
         {/* --- HERO SECTION --- */}
         <Box
           sx={{
-            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            // Adaptive Gradient
+            background: theme.palette.mode === 'dark'
+              ? `linear-gradient(135deg, ${theme.palette.primary.dark} 0%, #000000 100%)`
+              : `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
             color: 'white',
-            py: { xs: 6, md: 10 },
+            py: { xs: 8, md: 12 },
             px: 4,
             borderRadius: 4,
             textAlign: 'center',
             mb: 8,
-            boxShadow: '0px 10px 30px rgba(118, 75, 162, 0.3)',
+            boxShadow: theme.shadows[10],
           }}
         >
           <Typography
             variant="h2"
             component="h1"
             gutterBottom
-            sx={{ fontWeight: 800, fontSize: { xs: '2.5rem', md: '3.5rem' } }}
+            sx={{ fontWeight: 800, fontSize: { xs: '2.5rem', md: '4rem' } }}
           >
             Welcome to DevBlog
           </Typography>
@@ -83,18 +79,15 @@ const Home = () => {
             endIcon={<ArrowForwardIcon />}
             onClick={() => navigate('/blogs')}
             sx={{
-              bgcolor: 'white',
-              color: '#764ba2',
+              bgcolor: 'background.paper',
+              color: 'text.primary',
               fontWeight: 700,
               px: 5,
               py: 1.5,
               borderRadius: 2,
-              boxShadow: '0 8px 20px rgba(118, 75, 162, 0.35)',
-              transition: 'all 0.2s ease-in-out',
               '&:hover': {
-                bgcolor: '#f0f0f0',
-                transform: 'translateY(-2px)',
-                boxShadow: '0 12px 28px rgba(118, 75, 162, 0.45)'
+                bgcolor: 'background.default',
+                transform: 'translateY(-2px)'
               }
             }}
           >
@@ -102,80 +95,73 @@ const Home = () => {
           </Button>
         </Box>
 
-        {/* --- GRID HEADER --- */}
+        {/* --- SECTION HEADER --- */} 
         <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 4 }}>
-          <Typography variant="h4" component="h2" sx={{ fontWeight: 'bold' }}>
+          <Typography variant="h4" component="h2" sx={{ fontWeight: 'bold', color: 'text.primary' }}>
             Featured Posts
           </Typography>
-          <Button endIcon={<ArrowForwardIcon />} color="primary" href='/blogs'>View All</Button>
+          <Button endIcon={<ArrowForwardIcon />} color="primary" onClick={() => navigate('/blogs')}>
+            View All
+          </Button>
         </Stack>
 
-          
-        {/* --- THE PERFECT GRID --- */}
-        <Grid container spacing={2}>
+        {/* --- BLOG GRID --- */}
+        <Grid container spacing={4}>
           {blogs.map((post) => (
-            // 1. Grid Item: Added 'display="flex"' to ensure the child Card fills the height
-            <Grid size={{ sm: 12, md: 6, xl: 4 }} key={post._id} sx={{ display: 'flex' }}>
+            <Grid size={{ xs: 12, md: 6, lg: 4 }} key={post._id} sx={{ display: 'flex' }}>
               <Card
                 sx={{
-                  width: '100%', // Fills the grid width
-                  display: 'flex', // Enables flexbox inside the card
-                  flexDirection: 'column', // Stacks Image -> Content -> Button vertically
-                  borderRadius: 2,
-                  boxShadow: 1,
-                  transition: 'transform 0.3s, box-shadow 0.3s',
+                  width: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  bgcolor: 'background.paper', // Dynamic card background
+                  borderRadius: 3,
+                  boxShadow: theme.shadows[1],
+                  transition: 'transform 0.3s',
                   '&:hover': {
-                    transform: 'scale(1.05)',
-                    boxShadow: 5
+                    transform: 'translateY(-5px)',
+                    boxShadow: theme.shadows[8]
                   },
                 }}
               >
                 <Box sx={{ position: 'relative' }}>
                   <CardMedia
                     component="img"
-                    height="200"
+                    height="220"
                     image={post.image}
                     alt={post.title}
-                    sx={{ objectFit: 'cover' }} // Ensures image doesn't stretch weirdly
                   />
                   <Chip
-                    label={post.category}
+                    label={post.category || 'General'}
                     size="small"
                     color="primary"
-                    sx={{
-                      position: 'absolute',
-                      top: 16,
-                      right: 16,
-                      fontWeight: 'bold',
-                      boxShadow: 2
-                    }}
+                    sx={{ position: 'absolute', top: 16, right: 16, fontWeight: 'bold' }}
                   />
                 </Box>
 
-                {/* 2. Card Content: 'flexGrow: 1' pushes the footer to the bottom */}
                 <CardContent sx={{ flexGrow: 1 }}>
-                  <Typography gutterBottom variant="h6" component="h3" fontWeight="bold">
+                  <Typography gutterBottom variant="h6" component="h3" fontWeight="bold" color="text.primary">
                     {post.title}
                   </Typography>
                   <Typography
                     variant="body2"
                     color="text.secondary"
                     sx={{
-                      lineHeight: 1.6,
-                      // Line Clamp Logic: Limits text to 3 lines
                       display: '-webkit-box',
                       WebkitBoxOrient: 'vertical',
                       WebkitLineClamp: 3,
+                      overflow: 'hidden'
                     }}
                   >
                     {post.excerpt}
                   </Typography>
                 </CardContent>
 
-                {/* 3. Card Actions */}
                 <Box sx={{ p: 2, pt: 0 }}>
-                  <Button size="small" variant="text" color="primary" sx={{ fontWeight: 'bold' }} 
-                        onClick={()=>{navigate(`/blogs/${post._id || post.id}`)}}
+                  <Button
+                    size="small"
+                    onClick={() => navigate(`/blogs/${post._id}`)}
+                    sx={{ fontWeight: 'bold' }}
                   >
                     Read Article
                   </Button>
@@ -183,12 +169,20 @@ const Home = () => {
               </Card>
             </Grid>
           ))}
-        </Grid>
+        </Grid> 
 
       </Container>
-      <NewsLetter />
-    </>
+      <Box sx={{ mt: 8 }}>
+        <NewsLetter />
+      </Box>
+
+      {/* FAQ Accordion */}
+      <Box sx={{ mt: 6 }}>
+        <Faq />
+      </Box>
+      
+    </Box>
   );
 };
 
-export default Home;
+export default Home; 

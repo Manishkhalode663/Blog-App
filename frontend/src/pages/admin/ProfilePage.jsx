@@ -1,23 +1,33 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container, Paper, Box, Typography, Avatar, Button, Grid,
   Divider, Dialog, DialogTitle, DialogContent, DialogActions,
   TextField, IconButton, Stack, Alert, Chip, Skeleton, 
-  useTheme, alpha, Tooltip, Card, CardContent
+  useTheme, alpha, Card, CardContent, InputAdornment
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import ArticleIcon from '@mui/icons-material/Article';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import EmailIcon from '@mui/icons-material/Email';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import LanguageIcon from '@mui/icons-material/Language';
+import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
+import CakeIcon from '@mui/icons-material/Cake';
+import PersonIcon from '@mui/icons-material/Person';
 import VerifiedIcon from '@mui/icons-material/Verified';
-import LinkIcon from '@mui/icons-material/Link';
 
 import { useAuth } from '../../context/AuthContext';
-import { blogsApi } from '../../api/blogApi'; // To fetch stats
+import { blogsApi } from '../../api/blogApi';
 import { authApi } from '../../api/authApi'; 
+
+// --- Helper: Format Date for Input (YYYY-MM-DD) ---
+const formatDateForInput = (isoString) => {
+    if (!isoString) return '';
+    return new Date(isoString).toISOString().split('T')[0];
+};
 
 // --- Sub-Component: Stat Box ---
 const StatBox = ({ label, value, icon, color }) => (
@@ -29,7 +39,9 @@ const StatBox = ({ label, value, icon, color }) => (
         borderRadius: 2, 
         textAlign: 'center',
         flex: 1,
-        bgcolor: (theme) => alpha(theme.palette[color].main, 0.04)
+        bgcolor: (theme) => alpha(theme.palette[color].main, 0.04),
+        transition: 'transform 0.2s',
+        '&:hover': { transform: 'translateY(-2px)' }
       }}
     >
         <Box sx={{ color: `${color}.main`, mb: 1, display: 'flex', justifyContent: 'center' }}>
@@ -51,72 +63,56 @@ const ProfilePage = () => {
   // --- State ---
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [statsLoading, setStatsLoading] = useState(true);
-  const [error, setError] = useState('');
-  
-  // Real stats data
   const [stats, setStats] = useState({ posts: 0, views: 0, likes: 0 });
 
   // Form State
   const [editData, setEditData] = useState({
     username: '',
     email: '',
-    bio: '',
-    website: '', // Added website field
-    location: '' // Added location field
+    bio: '',       // Short Headline
+    about: '',     // Long Description
+    location: '',
+    website: '',
+    experience: '',
+    dob: ''
   });
+  
   const [avatarFile, setAvatarFile] = useState(null);
   const [preview, setPreview] = useState('');
 
   // --- Effects ---
-
-  // 1. Initialize User Data
   useEffect(() => {
     if (user) {
+      console.log(user);
       setEditData({
         username: user.username || '',
         email: user.email || '',
         bio: user.bio || '',
+        about: user.about || '',
+        location: user.location || '',
         website: user.website || '',
-        location: user.location || ''
+        experience: user.experience || '',
+        dob: user.dob ? formatDateForInput(user.dob) : ''
       });
       setPreview(user.avatar);
+
+      
+      // Fetch Stats
+      blogsApi.getByAuthor(user.username)
+        .then(posts => {
+            const safePosts = posts || [];
+            setStats({
+                posts: safePosts.length,
+                views: safePosts.reduce((acc, curr) => acc + (curr.views || 0), 0),
+                likes: safePosts.reduce((acc, curr) => acc + (curr.likes?.length || 0), 0)
+            });
+            
+        })
+        .catch(console.error);
     }
   }, [user]);
 
-  // 2. Fetch User Stats (Real Data)
-  useEffect(() => {
-    const fetchStats = async () => {
-        if(!user?.username) return;
-        setStatsLoading(true);
-        try {
-            const posts = await blogsApi.getByAuthor(user.username);
-            const totalPosts = posts.length;
-            const totalViews = posts.reduce((acc, curr) => acc + (curr.views || 0), 0);
-            const totalLikes = posts.reduce((acc, curr) => acc + (curr.likes?.length || 0), 0);
-            
-            setStats({ posts: totalPosts, views: totalViews, likes: totalLikes });
-        } catch (err) {
-            console.error("Error fetching stats", err);
-        } finally {
-            setStatsLoading(false);
-        }
-    };
-    fetchStats();
-  }, [user]);
-
   // --- Handlers ---
-
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => {
-    setOpen(false);
-    setError('');
-  };
-
-  const handleChange = (e) => {
-    setEditData({ ...editData, [e.target.name]: e.target.value });
-  };
-
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -125,38 +121,42 @@ const ProfilePage = () => {
     }
   };
 
+  const handleChange = (e) => {
+    setEditData({ ...editData, [e.target.name]: e.target.value });
+  };
+
   const handleSubmit = async () => {
     setLoading(true);
-    setError('');
-    
     try {
       const formData = new FormData();
-      formData.append('username', editData.username);
-      formData.append('bio', editData.bio); 
-      formData.append('website', editData.website);
-      formData.append('location', editData.location);
-
+      // Append all fields
+      Object.keys(editData).forEach(key => {
+        // Don't append email (read-only)
+        if (key !== 'email') {
+            formData.append(key, editData[key]);
+        }
+      });
+      
       if (avatarFile) {
         formData.append('avatar', avatarFile);
       }
 
       await authApi.updateProfile(formData);
       window.location.reload(); 
-      handleClose();
     } catch (err) {
-      setError('Failed to update profile. ' + (err.response?.data?.message || ''));
       console.error(err);
     } finally {
       setLoading(false);
+      setOpen(false);
     }
   };
 
-  if (!user) return <Box p={4}><Skeleton variant="rectangular" height={300} /></Box>;
+  if (!user) return <Box p={4}><Skeleton variant="rectangular" height={400} /></Box>;
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 8 }}>
       
-      {/* --- 1. HEADER CARD --- */}
+      {/* --- 1. HEADER SECTION --- */}
       <Paper 
         elevation={0} 
         sx={{ 
@@ -167,20 +167,20 @@ const ProfilePage = () => {
             mb: 4 
         }}
       >
-        {/* Banner / Cover Image */}
+        {/* Cover Image */}
         <Box 
             sx={{ 
                 height: 200, 
-                background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
+                background: `linear-gradient(135deg, ${theme.palette.primary.dark} 0%, ${theme.palette.primary.main} 100%)`,
                 position: 'relative'
             }}
         />
 
-        <Box sx={{ px: 4, pb: 4 }}>
+        <Box sx={{ px: { xs: 2, md: 4 }, pb: 4 }}>
           <Grid container spacing={2} alignItems="flex-end" sx={{ mt: -8 }}>
             
             {/* Avatar */}
-            <Grid item xs={12} sm="auto">
+            <Grid size={{ xs: 12 }}   sm="auto">
               <Box sx={{ position: 'relative', display: 'flex', justifyContent: { xs: 'center', sm: 'flex-start' } }}>
                 <Avatar 
                   src={user.avatar} 
@@ -188,7 +188,7 @@ const ProfilePage = () => {
                   sx={{ 
                     width: 140, 
                     height: 140, 
-                    border: '5px solid white', 
+                    border: `5px solid ${theme.palette.background.paper}`, 
                     boxShadow: theme.shadows[3],
                     bgcolor: 'background.paper'
                   }} 
@@ -196,54 +196,63 @@ const ProfilePage = () => {
               </Box>
             </Grid>
 
-            {/* User Details */}
-            <Grid item xs={12} sm>
-               <Box sx={{ textAlign: { xs: 'center', sm: 'left' }, mb: 1, mt: { xs: 2, sm: 0 } }}>
+            {/* Basic Details */}
+            <Grid size={{ xs: 12 }} >
+               <Box sx={{ textAlign: { xs: 'center', sm: 'left' }, mt: { xs: 1, sm: 0 } }}>
                  <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1} alignItems={{ xs: 'center', sm: 'flex-end' }}>
                     <Typography variant="h4" fontWeight="800">
                         {user.username}
                     </Typography>
-                    {user.emailVerified && (
-                         <Tooltip title="Verified Author">
-                            <VerifiedIcon color="primary" sx={{ mb: 0.5 }} />
-                         </Tooltip>
-                    )}
+                    {/* Role Chip */}
                     <Chip 
                         label={user.role || "Author"} 
                         size="small" 
-                        color="secondary" 
-                        sx={{ fontWeight: 700, borderRadius: 1, mb: 0.5 }} 
+                        color="primary" 
+                        variant="outlined"
+                        sx={{ fontWeight: 700, borderRadius: 1, mb: 0.5, border: '1px solid' }} 
                     />
                  </Stack>
-                 <Typography variant="body1" color="text.secondary" sx={{ mt: 0.5 }}>
-                    {user.bio ? user.bio.substring(0, 100) + (user.bio.length > 100 ? '...' : '') : "Digital creator & blog enthusiast."}
-                 </Typography>
                  
-                 {/* Meta Data Row */}
+                 {/* Short Headline (Bio) */}
+                 <Typography variant="body1" color="text.secondary" sx={{ mt: 0.5, fontStyle: 'italic' }}>
+                    {user.bio || "No headline added yet."}
+                 </Typography>
+
+                 {/* Quick Links */}
                  <Stack 
                     direction="row" 
-                    spacing={3} 
+                    spacing={2} 
                     justifyContent={{ xs: 'center', sm: 'flex-start' }}
-                    sx={{ mt: 2, color: 'text.secondary', typography: 'body2' }}
+                    sx={{ mt: 2, color: 'text.secondary', typography: 'body2', flexWrap: 'wrap', gap: 1 }}
                 >
+                    {user.location && (
+                        <Box display="flex" alignItems="center" gap={0.5}>
+                            <LocationOnIcon fontSize="small" color="action" /> {user.location}
+                        </Box>
+                    )}
+                    {user.website && (
+                        <Box display="flex" alignItems="center" gap={0.5}>
+                            <LanguageIcon fontSize="small" color="action" /> 
+                            <a href={user.website} target="_blank" rel="noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>
+                                Website
+                            </a>
+                        </Box>
+                    )}
                     <Box display="flex" alignItems="center" gap={0.5}>
-                        <CalendarTodayIcon fontSize="small" /> Joined {new Date(user.createdAt).toLocaleDateString()}
-                    </Box>
-                    <Box display="flex" alignItems="center" gap={0.5}>
-                        <EmailIcon fontSize="small" /> {user.email}
+                        <CalendarTodayIcon fontSize="small" color="action" /> Joined {new Date(user.createdAt).toLocaleDateString()}
                     </Box>
                  </Stack>
                </Box>
             </Grid>
 
             {/* Edit Button */}
-            <Grid item xs={12} sm="auto">
+            <Grid size={{ xs: 12 }} sm="auto">
                 <Box display="flex" justifyContent={{ xs: 'center', sm: 'flex-end' }}>
                     <Button 
-                        variant="outlined" 
+                        variant="contained" 
                         startIcon={<EditIcon />} 
-                        onClick={handleOpen}
-                        sx={{ borderRadius: 2, fontWeight: 600, textTransform: 'none' }}
+                        onClick={() => setOpen(true)}
+                        sx={{ borderRadius: 2, fontWeight: 700, textTransform: 'none', px: 3 }}
                     >
                         Edit Profile
                     </Button>
@@ -256,199 +265,251 @@ const ProfilePage = () => {
       {/* --- 2. MAIN CONTENT GRID --- */}
       <Grid container spacing={4}>
           
-          {/* Left Column: Stats & Links */}
-          <Grid item xs={12} md={4}>
+          {/* LEFT COLUMN: Personal Details & Stats */}
+          <Grid size={{ xs: 12 ,md:4}} >
              <Stack spacing={3}>
                 
-                {/* Stats Card */}
+                {/* Personal Details Card */}
                 <Card elevation={0} sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 3 }}>
                     <CardContent>
-                        <Typography variant="h6" fontWeight="700" mb={2}>Impact</Typography>
-                        {statsLoading ? (
-                            <Stack spacing={2}><Skeleton height={40}/><Skeleton height={40}/></Stack>
-                        ) : (
-                            <Stack spacing={2}>
-                                <Box display="flex" justifyContent="space-between" alignItems="center">
-                                    <Box display="flex" alignItems="center" gap={1} color="text.secondary">
-                                        <ArticleIcon fontSize="small" /> <Typography variant="body2">Articles</Typography>
-                                    </Box>
-                                    <Typography variant="subtitle1" fontWeight="700">{stats.posts}</Typography>
+                        <Typography variant="h6" fontWeight="700" mb={2}>Personal Details</Typography>
+                        <Stack spacing={2}>
+                            <Box display="flex" alignItems="center" gap={2}>
+                                <EmailIcon color="action" />
+                                <Box>
+                                    <Typography variant="caption" color="text.secondary">Email</Typography>
+                                    <Typography variant="body2" fontWeight={500}>{user.email}</Typography>
                                 </Box>
-                                <Divider />
-                                <Box display="flex" justifyContent="space-between" alignItems="center">
-                                    <Box display="flex" alignItems="center" gap={1} color="text.secondary">
-                                        <VisibilityIcon fontSize="small" /> <Typography variant="body2">Total Views</Typography>
-                                    </Box>
-                                    <Typography variant="subtitle1" fontWeight="700">{stats.views.toLocaleString()}</Typography>
+                            </Box>
+                            <Divider />
+                            <Box display="flex" alignItems="center" gap={2}>
+                                <WorkOutlineIcon color="action" />
+                                <Box>
+                                    <Typography variant="caption" color="text.secondary">Experience</Typography>
+                                    <Typography variant="body2" fontWeight={500}>{user.experience || "Not Specified"}</Typography>
                                 </Box>
-                                <Divider />
-                                <Box display="flex" justifyContent="space-between" alignItems="center">
-                                    <Box display="flex" alignItems="center" gap={1} color="text.secondary">
-                                        <FavoriteIcon fontSize="small" /> <Typography variant="body2">Appreciations</Typography>
-                                    </Box>
-                                    <Typography variant="subtitle1" fontWeight="700">{stats.likes}</Typography>
+                            </Box>
+                            <Divider />
+                            <Box display="flex" alignItems="center" gap={2}>
+                                <CakeIcon color="action" />
+                                <Box>
+                                    <Typography variant="caption" color="text.secondary">Birthday</Typography>
+                                    <Typography variant="body2" fontWeight={500}>
+                                        {user.dob ? new Date(user.dob).toLocaleDateString() : "Not Specified"}
+                                    </Typography>
                                 </Box>
-                            </Stack>
-                        )}
+                            </Box>
+                        </Stack>
                     </CardContent>
                 </Card>
 
-                {/* About Card */}
+                {/* Impact Stats */}
                 <Card elevation={0} sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 3 }}>
                     <CardContent>
-                        <Typography variant="h6" fontWeight="700" mb={2}>About Me</Typography>
-                        <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6 }}>
-                            {user.bio || "No bio added yet. Click 'Edit Profile' to tell the world about yourself!"}
+                        <Typography variant="h6" fontWeight="700" mb={2} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                            <VerifiedIcon color="primary" fontSize="small" /> Impact
                         </Typography>
-                        {user.website && (
-                            <Box sx={{ mt: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
-                                <LinkIcon color="primary" fontSize="small" />
-                                <Typography variant="body2" component="a" href={user.website} target="_blank" color="primary" sx={{ textDecoration: 'none', fontWeight: 600 }}>
-                                    {user.website.replace(/^https?:\/\//, '')}
-                                </Typography>
+                        <Stack spacing={2}>
+                            <Box display="flex" justifyContent="space-between">
+                                <Typography color="text.secondary">Total Articles</Typography>
+                                <Typography fontWeight={700}>{stats.posts}</Typography>
                             </Box>
-                        )}
+                            <Box display="flex" justifyContent="space-between">
+                                <Typography color="text.secondary">Total Views</Typography>
+                                <Typography fontWeight={700}>{stats.views}</Typography>
+                            </Box>
+                            <Box display="flex" justifyContent="space-between">
+                                <Typography color="text.secondary">Total Likes</Typography>
+                                <Typography fontWeight={700}>{stats.likes}</Typography>
+                            </Box>
+                        </Stack>
                     </CardContent>
                 </Card>
 
              </Stack>
           </Grid>
 
-          {/* Right Column: Highlighted Stats / Activity */}
-          <Grid item xs={12} md={8}>
-                <Box mb={3}>
+          {/* RIGHT COLUMN: About & Stats Boxes */}
+          <Grid size={{ xs: 12,md:8 }} >
+                
+                {/* Stats Row */}
+                <Box mb={4}>
                     <Typography variant="h6" fontWeight="700" mb={2}>Performance Overview</Typography>
                     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-                         <StatBox 
-                            label="Total Articles" 
-                            value={stats.posts} 
-                            icon={<ArticleIcon />} 
-                            color="primary" 
-                         />
-                         <StatBox 
-                            label="Total Reads" 
-                            value={stats.views >= 1000 ? (stats.views/1000).toFixed(1) + 'k' : stats.views} 
-                            icon={<VisibilityIcon />} 
-                            color="success" 
-                         />
-                         <StatBox 
-                            label="Engagement" 
-                            value={stats.likes} 
-                            icon={<FavoriteIcon />} 
-                            color="warning" 
-                         />
+                         <StatBox label="Articles" value={stats.posts} icon={<ArticleIcon />} color="primary" />
+                         <StatBox label="Views" value={stats.views.toLocaleString()} icon={<VisibilityIcon />} color="success" />
+                         <StatBox label="Likes" value={stats.likes} icon={<FavoriteIcon />} color="warning" />
                     </Stack>
                 </Box>
 
-                <Divider sx={{ my: 4 }} />
-                
-                {/* Empty State for recent activity (Mock) */}
-                <Box textAlign="center" py={4} bgcolor={alpha(theme.palette.primary.main, 0.03)} borderRadius={3} border="1px dashed" borderColor="divider">
-                    <Typography variant="h6" color="text.secondary" fontWeight="600">No Recent Activity</Typography>
-                    <Typography variant="body2" color="text.secondary">You haven't performed any public actions recently.</Typography>
+                <Divider sx={{ mb: 4 }} />
+
+                {/* About Me Section */}
+                <Box>
+                    <Typography variant="h6" fontWeight="700" mb={2}>About Me</Typography>
+                    <Paper 
+                        elevation={0} 
+                        sx={{ 
+                            p: 3, 
+                            bgcolor: 'background.default', 
+                            border: '1px solid', 
+                            borderColor: 'divider', 
+                            borderRadius: 3,
+                            minHeight: 200
+                        }}
+                    >
+                        <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8, whiteSpace: 'pre-line' }}>
+                            {user.about || "This user hasn't written a bio yet. Click 'Edit Profile' to add your story."}
+                        </Typography>
+                    </Paper>
                 </Box>
+
           </Grid>
 
       </Grid>
 
-
       {/* --- EDIT PROFILE DIALOG --- */}
       <Dialog 
         open={open} 
-        onClose={handleClose} 
+        onClose={() => setOpen(false)} 
         fullWidth 
-        maxWidth="sm"
+        maxWidth="md"
         PaperProps={{ sx: { borderRadius: 3 } }}
       >
-        <DialogTitle sx={{ fontWeight: 700, pb: 1 }}>Edit Profile</DialogTitle>
+        <DialogTitle sx={{ fontWeight: 800, pb: 1 }}>Edit Public Profile</DialogTitle>
         <Divider />
         <DialogContent>
-          <Box component="form" sx={{ mt: 1 }}>
             
-            {/* Avatar Upload */}
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 3 }}>
-                <Box position="relative">
-                    <Avatar 
-                        src={preview} 
-                        sx={{ width: 100, height: 100, border: '1px solid #ddd' }} 
-                    />
-                    <IconButton 
-                        component="label"
-                        sx={{ 
-                            position: 'absolute', bottom: -5, right: -5, 
-                            bgcolor: 'primary.main', color: 'white',
-                            '&:hover': { bgcolor: 'primary.dark' }
-                        }}
-                    >
-                         <PhotoCamera fontSize="small" />
-                         <input hidden accept="image/*" type="file" onChange={handleFileChange} />
-                    </IconButton>
-                </Box>
-                <Typography variant="caption" color="text.secondary" mt={1}>Allowed *.jpeg, *.jpg, *.png, *.max 5MB</Typography>
-            </Box>
+            <Grid container spacing={4} sx={{ mt: 0 }}>
+                {/* Left: Avatar & Basic */}
+                <Grid size={{ xs: 12 ,md:4}}>
+                    <Box display="flex" flexDirection="column" alignItems="center">
+                        <Box position="relative">
+                            <Avatar 
+                                src={preview} 
+                                sx={{ width: 120, height: 120, border: '1px solid #ddd', mb: 2 }} 
+                            />
+                            <IconButton 
+                                component="label"
+                                sx={{ 
+                                    position: 'absolute', bottom: 10, right: 0, 
+                                    bgcolor: 'primary.main', color: 'white',
+                                    '&:hover': { bgcolor: 'primary.dark' }
+                                }}
+                            >
+                                <PhotoCamera fontSize="small" />
+                                <input hidden accept="image/*" type="file" onChange={handleFileChange} />
+                            </IconButton>
+                        </Box>
+                        <Typography variant="caption" color="text.secondary">Allowed *.jpeg, *.jpg, *.png</Typography>
+                    </Box>
 
-            <Grid container spacing={2}>
-                <Grid item xs={12}>
-                    <TextField
-                        label="Username"
-                        name="username"
-                        fullWidth
-                        value={editData.username}
-                        onChange={handleChange}
-                        variant="outlined"
-                    />
+                    <Stack spacing={2} mt={3}>
+                        <TextField
+                            label="Username"
+                            name="username"
+                            fullWidth
+                            size="small"
+                            value={editData.username}
+                            onChange={handleChange}
+                            InputProps={{ startAdornment: <InputAdornment position="start"><PersonIcon fontSize="small"/></InputAdornment> }}
+                        />
+                         <TextField
+                            label="Email"
+                            fullWidth
+                            size="small"
+                            value={editData.email}
+                            disabled
+                            InputProps={{ startAdornment: <InputAdornment position="start"><EmailIcon fontSize="small"/></InputAdornment> }}
+                        />
+                         <TextField
+                            label="Date of Birth"
+                            name="dob"
+                            type="date"
+                            fullWidth
+                            size="small"
+                            value={editData.dob}
+                            onChange={handleChange}
+                            InputLabelProps={{ shrink: true }}
+                        />
+                    </Stack>
                 </Grid>
-                <Grid item xs={12}>
-                    <TextField
-                        label="Email Address"
-                        name="email"
-                        fullWidth
-                        disabled
-                        value={editData.email}
-                        helperText="Email cannot be changed."
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField
-                        label="Website / Portfolio"
-                        name="website"
-                        fullWidth
-                        placeholder="https://yourwebsite.com"
-                        value={editData.website}
-                        onChange={handleChange}
-                        InputProps={{
-                            startAdornment: <LinkIcon color="disabled" sx={{ mr: 1 }} />
-                        }}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField
-                        label="Bio"
-                        name="bio"
-                        fullWidth
-                        multiline
-                        rows={4}
-                        placeholder="Tell us a little about yourself..."
-                        value={editData.bio}
-                        onChange={handleChange}
-                    />
+
+                {/* Right: Details */}
+                <Grid size={{ xs: 12,md:8  }}>
+                    <Typography variant="subtitle2" fontWeight={700} color="primary" gutterBottom>Profile Details</Typography>
+                    <Grid container spacing={2}>
+                        <Grid size={{ xs: 12 }}>
+                            <TextField
+                                label="Headline (Bio)"
+                                name="bio"
+                                fullWidth
+                                placeholder="e.g. Full Stack Developer at Tech Co."
+                                value={editData.bio}
+                                onChange={handleChange}
+                                helperText="A short description that appears below your name"
+                            />
+                        </Grid>
+                        <Grid size={{ xs: 12 ,sm:6}}>
+                            <TextField
+                                label="Location"
+                                name="location"
+                                fullWidth
+                                placeholder="e.g. New York, USA"
+                                value={editData.location}
+                                onChange={handleChange}
+                                InputProps={{ startAdornment: <InputAdornment position="start"><LocationOnIcon fontSize="small"/></InputAdornment> }}
+                            />
+                        </Grid>
+                        <Grid size={{ xs: 12 ,sm:6}}>
+                            <TextField
+                                label="Website"
+                                name="website"
+                                fullWidth
+                                placeholder="https://..."
+                                value={editData.website}
+                                onChange={handleChange}
+                                InputProps={{ startAdornment: <InputAdornment position="start"><LanguageIcon fontSize="small"/></InputAdornment> }}
+                            />
+                        </Grid>
+                        <Grid size={{ xs: 12 }}>
+                            <TextField
+                                label="Experience / Job Title"
+                                name="experience"
+                                fullWidth
+                                placeholder="e.g. Senior Software Engineer (5 Years)"
+                                value={editData.experience}
+                                onChange={handleChange}
+                                InputProps={{ startAdornment: <InputAdornment position="start"><WorkOutlineIcon fontSize="small"/></InputAdornment> }}
+                            />
+                        </Grid>
+                        <Grid size={{ xs: 12 }}>
+                            <TextField
+                                label="About Me"
+                                name="about"
+                                fullWidth
+                                multiline
+                                rows={4}
+                                placeholder="Tell your story..."
+                                value={editData.about}
+                                onChange={handleChange}
+                            />
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grid>
 
-            {error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>}
-
-          </Box>
         </DialogContent>
-        <DialogActions sx={{ p: 3, pt: 0 }}>
-          <Button onClick={handleClose} sx={{ fontWeight: 600 }}>Cancel</Button>
-          <Button 
-            onClick={handleSubmit} 
-            variant="contained" 
-            disabled={loading}
-            sx={{ px: 4, fontWeight: 700, borderRadius: 2 }}
-          >
-            {loading ? 'Saving...' : 'Save Changes'}
-          </Button>
+        <DialogActions sx={{ p: 3, bgcolor: 'background.default' }}>
+            <Button onClick={() => setOpen(false)} color="inherit">Cancel</Button>
+            <Button 
+                onClick={handleSubmit} 
+                variant="contained" 
+                disabled={loading}
+                sx={{ px: 4, borderRadius: 2 }}
+            >
+                {loading ? 'Saving...' : 'Save Changes'}
+            </Button>
         </DialogActions>
       </Dialog>
 
@@ -457,253 +518,140 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
+
+
 // import React, { useState, useEffect } from 'react';
 // import {
-//   Container,
-//   Paper,
-//   Box,
-//   Typography,
-//   Avatar,
-//   Button,
-//   Grid,
-//   Divider,
-//   Dialog,
-//   DialogTitle,
-//   DialogContent,
-//   DialogActions,
-//   TextField,
-//   IconButton,
-//   Stack,
-//   Alert
+//   Container, Paper, Box, Typography, Avatar, Button, Grid,
+//   Divider, Dialog, DialogTitle, DialogContent, DialogActions,
+//   TextField, IconButton, Stack, Alert, Chip, Skeleton, 
+//   useTheme, alpha, Card, CardContent
 // } from '@mui/material';
 // import EditIcon from '@mui/icons-material/Edit';
-// import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 // import PhotoCamera from '@mui/icons-material/PhotoCamera';
+// import ArticleIcon from '@mui/icons-material/Article';
+// import VisibilityIcon from '@mui/icons-material/Visibility';
+// import FavoriteIcon from '@mui/icons-material/Favorite';
+// import EmailIcon from '@mui/icons-material/Email';
+// import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+
 // import { useAuth } from '../../context/AuthContext';
-// import { useNavigate } from 'react-router-dom';
-// import { authApi } from '../../api/authApi'; // Import the API helper
+// import { blogsApi } from '../../api/blogApi';
+// import { authApi } from '../../api/authApi'; 
+
+// const StatBox = ({ label, value, icon, color }) => (
+//     <Box 
+//       sx={{ 
+//         p: 2, border: '1px solid', borderColor: 'divider', borderRadius: 2, 
+//         textAlign: 'center', flex: 1,
+//         bgcolor: (theme) => alpha(theme.palette[color].main, 0.05)
+//       }}
+//     >
+//         <Box sx={{ color: `${color}.main`, mb: 1, display: 'flex', justifyContent: 'center' }}>{icon}</Box>
+//         <Typography variant="h5" fontWeight="800">{value}</Typography>
+//         <Typography variant="caption" textTransform="uppercase" fontWeight={600} color="text.secondary">{label}</Typography>
+//     </Box>
+// );
 
 // const ProfilePage = () => {
-//   const { user } = useAuth(); // We might need a 'setUser' or re-fetch logic here
-//   const navigate = useNavigate();
-
-//   // Modal State
+//   const { user } = useAuth();
+//   const theme = useTheme();
+  
 //   const [open, setOpen] = useState(false);
-//   const [loading, setLoading] = useState(false);
-//   const [error, setError] = useState('');
-
-//   // Form State
-//   const [editData, setEditData] = useState({
-//     username: '',
-//     email: '',
-//     bio: '', // Assuming you might add a bio field later
-//   });
+//   const [stats, setStats] = useState({ posts: 0, views: 0, likes: 0 });
+//   const [editData, setEditData] = useState({ username: '', bio: '' });
 //   const [avatarFile, setAvatarFile] = useState(null);
 //   const [preview, setPreview] = useState('');
 
-//   // Initialize form when user data loads
 //   useEffect(() => {
 //     if (user) {
-//       setEditData({
-//         username: user.username || '',
-//         email: user.email || '',
-//         bio: user.bio || '',
-//       });
-//       setPreview(user.avatar);
+//         setEditData({ username: user.username, bio: user.bio || '' });
+//         setPreview(user.avatar);
+//         // Fetch stats
+//         blogsApi.getByAuthor(user.username).then(posts => {
+//             setStats({
+//                 posts: posts.length,
+//                 views: posts.reduce((a, b) => a + (b.views || 0), 0),
+//                 likes: posts.reduce((a, b) => a + (b.likes?.length || 0), 0)
+//             });
+//         }).catch(console.error);
 //     }
 //   }, [user]);
 
-//   // Handle Edit Click
-//   const handleOpen = () => setOpen(true);
-//   const handleClose = () => {
-//     setOpen(false);
-//     setError('');
-//   };
-
-//   // Handle Input Change
-//   const handleChange = (e) => {
-//     setEditData({ ...editData, [e.target.name]: e.target.value });
-//   };
-
-//   // Handle File Change (Avatar)
-//   const handleFileChange = (e) => {
-//     const file = e.target.files[0];
-//     if (file) {
-//       setAvatarFile(file);
-//       setPreview(URL.createObjectURL(file)); // Show preview instantly
-//     }
-//   };
-
-//   // Submit Profile Updates
 //   const handleSubmit = async () => {
-//     setLoading(true);
-//     setError('');
-    
-//     try {
-//       // Create FormData to send text + file
-//       const formData = new FormData();
-//       formData.append('username', editData.username);
-//       // formData.append('bio', editData.bio); 
-//       if (avatarFile) {
-//         formData.append('avatar', avatarFile);
-//       }
-
-//       // Call API
-//       await authApi.updateProfile(formData);
-      
-//       // Update Context (You might need to expose setUser in AuthContext or just reload)
-//       window.location.reload(); // Simple way to refresh data for now
-      
-//       handleClose();
-//     } catch (err) {
-//       setError('Failed to update profile.');
-//       console.error(err);
-//     } finally {
-//       setLoading(false);
-//     }
+//     const formData = new FormData();
+//     formData.append('username', editData.username);
+//     formData.append('bio', editData.bio);
+//     if(avatarFile) formData.append('avatar', avatarFile);
+//     await authApi.updateProfile(formData);
+//     window.location.reload();
 //   };
 
-//   if (!user) return <Typography>Loading Profile...</Typography>;
+//   if (!user) return <Skeleton height={400} />;
 
 //   return (
-//     <Container maxWidth="md" sx={{ mt: 8, mb: 8 }}>
-//       <Paper elevation={3} sx={{ borderRadius: 3, overflow: 'hidden' }}>
-        
-//         {/* Header Background (Optional) */}
-//         <Box sx={{ height: 140, bgcolor: '#1976d2' }} />
-
+//     <Container maxWidth="lg" sx={{ mt: 4, mb: 8 }}>
+//       <Paper elevation={0} sx={{ borderRadius: 3, overflow: 'hidden', border: 1, borderColor: 'divider', mb: 4 }}>
+//         <Box sx={{ height: 180, background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)` }} />
 //         <Box sx={{ px: 4, pb: 4 }}>
-//           <Grid container spacing={2} alignItems="flex-end" sx={{ mt: -6 }}>
-            
-//             {/* Avatar Section */}
+//           <Grid container spacing={2} alignItems="flex-end" sx={{ mt: -8 }}>
 //             <Grid size={{ xs: 12, sm: 'auto' }}>
-//               <Box sx={{ display: 'flex', justifyContent: { xs: 'center', sm: 'flex-start' } }}>
-//                 <Avatar 
-//                   src={user.avatar} 
-//                   alt={user.username}
-//                   sx={{ 
-//                     width: 120, 
-//                     height: 120, 
-//                     border: '4px solid white', 
-//                     boxShadow: 2 
-//                   }} 
-//                 />
-//               </Box>
+//               <Avatar src={user.avatar} sx={{ width: 140, height: 140, border: `5px solid ${theme.palette.background.paper}` }} />
 //             </Grid>
-
-//             {/* User Info Section */}
 //             <Grid size={{ xs: 12, sm: true }}>
-//                <Box sx={{ textAlign: { xs: 'center', sm: 'left' }, mb: 1 }}>
-//                  <Typography variant="h4" fontWeight="bold">
-//                     {user.username}
-//                  </Typography>
-//                  <Typography variant="body1" color="text.secondary">
-//                     {user.email}
-//                  </Typography>
+//                <Box sx={{ mt: 1 }}>
+//                  <Typography variant="h4" fontWeight="800">{user.username}</Typography>
+//                  <Typography variant="body1" color="text.secondary" sx={{ mt: 1 }}>{user.bio || "No bio yet."}</Typography>
+//                  <Stack direction="row" spacing={3} mt={2} color="text.secondary">
+//                     <Box display="flex" gap={1} alignItems="center"><EmailIcon fontSize="small"/> {user.email}</Box>
+//                     <Box display="flex" gap={1} alignItems="center"><CalendarTodayIcon fontSize="small"/> Joined {new Date(user.createdAt).toLocaleDateString()}</Box>
+//                  </Stack>
 //                </Box>
 //             </Grid>
-
-//             {/* Action Buttons */}
 //             <Grid size={{ xs: 12, sm: 'auto' }}>
-//               <Stack direction="row" spacing={2} justifyContent={{ xs: 'center', sm: 'flex-end' }}>
-//                 <Button 
-//                   variant="outlined" 
-//                   startIcon={<EditIcon />} 
-//                   onClick={handleOpen}
-//                 >
-//                   Edit Profile
-//                 </Button>
-//                 <Button 
-//                   variant="contained" 
-//                   startIcon={<AddCircleOutlineIcon />}
-//                   onClick={() => navigate('/create')}
-//                 >
-//                   Write Blog
-//                 </Button>
-//               </Stack>
+//                 <Button variant="outlined" startIcon={<EditIcon />} onClick={() => setOpen(true)}>Edit Profile</Button>
 //             </Grid>
 //           </Grid>
-
-//           <Divider sx={{ my: 4 }} />
-
-//           {/* Additional Info / Stats Section */}
-//           <Box>
-//             <Typography variant="h6" gutterBottom>
-//               About
-//             </Typography>
-//             <Typography variant="body2" color="text.secondary">
-//               {user.bio || "This user hasn't written a bio yet."}
-//             </Typography>
-            
-//             <Box sx={{ mt: 3, bgcolor: '#f5f5f5', p: 2, borderRadius: 2 }}>
-//                 <Typography variant="subtitle2" fontWeight="bold">
-//                     Member Since:
-//                 </Typography>
-//                 <Typography variant="body2">
-//                     {new Date(user.createdAt).toLocaleDateString()}
-//                 </Typography>
-//             </Box>
-//           </Box>
 //         </Box>
 //       </Paper>
 
-//       {/* --- Edit Profile Dialog (Modal) --- */}
-//       <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
+//       <Grid container spacing={4}>
+//           <Grid size={{ xs: 12, md: 8 }}>
+//                 <Typography variant="h6" fontWeight="700" mb={2}>Overview</Typography>
+//                 <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+//                     <StatBox label="Articles" value={stats.posts} icon={<ArticleIcon />} color="primary" />
+//                     <StatBox label="Views" value={stats.views} icon={<VisibilityIcon />} color="success" />
+//                     <StatBox label="Likes" value={stats.likes} icon={<FavoriteIcon />} color="warning" />
+//                 </Stack>
+//           </Grid>
+//           <Grid size={{ xs: 12, md: 4 }}>
+//               <Card variant="outlined" sx={{ borderRadius: 3 }}>
+//                   <CardContent>
+//                       <Typography variant="h6" fontWeight="700" mb={2}>About</Typography>
+//                       <Typography variant="body2" color="text.secondary">{user.bio || "Write something about yourself..."}</Typography>
+//                   </CardContent>
+//               </Card>
+//           </Grid>
+//       </Grid>
+
+//       <Dialog open={open} onClose={() => setOpen(false)} fullWidth maxWidth="sm">
 //         <DialogTitle>Edit Profile</DialogTitle>
 //         <DialogContent>
-//           <Box component="form" sx={{ mt: 1 }}>
-            
-//             {/* Avatar Upload Area */}
-//             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 3 }}>
-//                 <Avatar 
-//                     src={preview} 
-//                     sx={{ width: 80, height: 80, mb: 1 }} 
-//                 />
-//                 <Button variant="text" component="label" startIcon={<PhotoCamera />}>
-//                     Change Photo
-//                     <input hidden accept="image/*" type="file" onChange={handleFileChange} />
+//             <Box display="flex" flexDirection="column" alignItems="center" my={2}>
+//                 <Avatar src={preview} sx={{ width: 100, height: 100, mb: 2 }} />
+//                 <Button component="label" startIcon={<PhotoCamera />}>
+//                     Change Photo <input hidden accept="image/*" type="file" onChange={(e) => {
+//                         const file = e.target.files[0];
+//                         if(file) { setAvatarFile(file); setPreview(URL.createObjectURL(file)); }
+//                     }} />
 //                 </Button>
 //             </Box>
-
-//             <TextField
-//               margin="normal"
-//               label="Username"
-//               name="username"
-//               fullWidth
-//               value={editData.username}
-//               onChange={handleChange}
-//             />
-            
-//             <TextField
-//               margin="normal"
-//               label="Email"
-//               name="email"
-//               fullWidth
-//               disabled // Usually we don't let users change email easily
-//               value={editData.email}
-//             />
-            
-//             <TextField
-//               margin="normal"
-//               label="Bio"
-//               name="bio"
-//               fullWidth
-//               multiline
-//               rows={3}
-//               placeholder="Tell us about yourself..."
-//               value={editData.bio}
-//               onChange={handleChange}
-//             />
-
-//             {error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>}
-
-//           </Box>
+//             <TextField fullWidth margin="normal" label="Username" value={editData.username} onChange={(e) => setEditData({...editData, username: e.target.value})} />
+//             <TextField fullWidth margin="normal" label="Bio" multiline rows={3} value={editData.bio} onChange={(e) => setEditData({...editData, bio: e.target.value})} />
 //         </DialogContent>
-//         <DialogActions sx={{ p: 3 }}>
-//           <Button onClick={handleClose}>Cancel</Button>
-//           <Button onClick={handleSubmit} variant="contained" disabled={loading}>
-//             {loading ? 'Saving...' : 'Save Changes'}
-//           </Button>
+//         <DialogActions sx={{ p: 2 }}>
+//             <Button onClick={() => setOpen(false)}>Cancel</Button>
+//             <Button variant="contained" onClick={handleSubmit}>Save Changes</Button>
 //         </DialogActions>
 //       </Dialog>
 

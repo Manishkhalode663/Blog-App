@@ -139,7 +139,7 @@ const CreateBlog = () => {
   const skeleton = <Skeleton variant="rectangular" height={200} sx={{ borderRadius: 2 }} />;
 
   return (
-    <Container maxWidth="xl" sx={{ py: 4 }}>
+    <Container maxWidth="xl" sx={{ py: 2 }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider', pb: 2, mb: 4 }}>
         <Typography variant="h4" fontWeight={700} color="primary.main">
           Write New Article

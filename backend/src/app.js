@@ -11,6 +11,7 @@ require('dotenv').config();
 const blogRoutes = require('./routes/blogRoutes');
 const authRoutes = require('./routes/authRoutes');
 const initScheduledJobs = require('./cron-jobs/blog-schedule');
+const { errorHandler } = require('./middleware/errorMiddleware');
 
 // 2. Configure Passport (pass instance for setup)
 require('./config/passport')(passport);
@@ -33,6 +34,8 @@ app.use(cors({
 // 5. Body parsers
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
+
+app.use(errorHandler);
 
 // 6. Session middleware
 app.use(
