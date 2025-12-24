@@ -1,0 +1,917 @@
+[{
+  "_id": {
+    "$oid": "6941372d09f162857faa0d7b"
+  },
+  "title": "The Future of Web Development in 2025",
+  "excerpt": "Explore the latest trends in AI-driven coding, WebAssembly, and the next generation of JavaScript frameworks.",
+  "image": "https://picsum.photos/seed/futureweb/600/400",
+  "category": "Technology",
+  "author": "Alex Johnson",
+  "publish": false,
+  "authorAvatar": "https://i.pravatar.cc/150?u=1",
+  "date": "Dec 15, 2025",
+  "readTime": "5 min read"
+},
+{
+  "_id": {
+    "$oid": "6941372d09f162857faa0d7c"
+  },
+  "title": "Mastering React Hooks: A Deep Dive",
+  "excerpt": "Understand the nuances of useEffect, useMemo, and useCallback to optimize your application's performance.",
+  "image": "https://picsum.photos/seed/reacthooks/600/400",
+  "category": "Coding",
+  "author": "Sarah Smith",
+  "publish": false,
+  "authorAvatar": "https://i.pravatar.cc/150?u=2",
+  "date": "Dec 12, 2025",
+  "readTime": "8 min read"
+},
+{
+  "_id": {
+    "$oid": "6941372d09f162857faa0d7d"
+  },
+  "title": "10 Tips for a Minimalist UI Design",
+  "excerpt": "Less is more. Learn how to use negative space, typography, and color to create stunning user interfaces.",
+  "image": "https://picsum.photos/seed/minimalist/600/400",
+  "category": "Design",
+  "author": "David Lee",
+  "authorAvatar": "https://i.pravatar.cc/150?u=3",
+  "date": "Dec 10, 2025",
+  "readTime": "4 min read"
+},
+{
+  "_id": {
+    "$oid": "6941372d09f162857faa0d7e"
+  },
+  "title": "Building Scalable Backend Systems",
+  "excerpt": "Strategies for database sharding, caching, and microservices architecture for high-traffic applications.",
+  "image": "https://picsum.photos/seed/backend/600/400",
+  "category": "Backend",
+  "author": "Maria Garcia",
+  "authorAvatar": "https://i.pravatar.cc/150?u=4",
+  "date": "Dec 08, 2025",
+  "readTime": "10 min read"
+},
+{
+  "_id": {
+    "$oid": "6941372d09f162857faa0d7f"
+  },
+  "title": "The Rise of Progressive Web Apps",
+  "excerpt": "Why PWAs are becoming the preferred choice for businesses looking to target mobile users without an app store.",
+  "image": "https://picsum.photos/seed/mobilepwa/600/400",
+  "category": "Mobile",
+  "author": "James Wilson",
+  "authorAvatar": "https://i.pravatar.cc/150?u=5",
+  "date": "Dec 05, 2025",
+  "readTime": "6 min read"
+},
+{
+  "_id": {
+    "$oid": "6941372d09f162857faa0d80"
+  },
+  "title": "Effective Remote Team Management",
+  "excerpt": "Tools and techniques to keep your distributed engineering team productive, happy, and connected.",
+  "image": "https://picsum.photos/seed/remote/600/400",
+  "category": "Business",
+  "author": "Linda Taylor",
+  "authorAvatar": "https://i.pravatar.cc/150?u=6",
+  "date": "Dec 01, 2025",
+  "readTime": "7 min read"
+},
+{
+  "_id": {
+    "$oid": "6941372d09f162857faa0d81"
+  },
+  "title": "Understanding CSS Grid vs Flexbox",
+  "excerpt": "A comprehensive guide on when to use Grid layout versus Flexbox for modern responsive web design.",
+  "image": "https://picsum.photos/seed/csslayout/600/400",
+  "category": "Design",
+  "author": "Emily Chen",
+  "authorAvatar": "https://i.pravatar.cc/150?u=7",
+  "date": "Nov 28, 2025",
+  "readTime": "6 min read"
+},
+{
+  "_id": {
+    "$oid": "6941372d09f162857faa0d82"
+  },
+  "title": "Python for Data Science Beginners",
+  "excerpt": "Get started with Pandas, NumPy, and Matplotlib to analyze data and visualize insights effectively.",
+  "image": "https://picsum.photos/seed/python/600/400",
+  "category": "Data Science",
+  "author": "Michael Brown",
+  "authorAvatar": "https://i.pravatar.cc/150?u=8",
+  "date": "Nov 25, 2025",
+  "readTime": "9 min read"
+},
+{
+  "_id": {
+    "$oid": "6941372d09f162857faa0d83"
+  },
+  "title": "Cybersecurity Best Practices for 2026",
+  "excerpt": "Protect your applications from SQL injection, XSS, and other common vulnerabilities with these tips.",
+  "image": "https://picsum.photos/seed/security/600/400",
+  "category": "Security",
+  "author": "Chris Evans",
+  "authorAvatar": "https://i.pravatar.cc/150?u=9",
+  "date": "Nov 22, 2025",
+  "readTime": "7 min read"
+},
+{
+  "_id": {
+    "$oid": "6941372d09f162857faa0d84"
+  },
+  "title": "Dockerizing Your Node.js Application",
+  "excerpt": "Step-by-step guide to creating Docker images and containers for consistent development environments.",
+  "image": "https://picsum.photos/seed/docker/600/400",
+  "category": "DevOps",
+  "author": "Jessica White",
+  "authorAvatar": "https://i.pravatar.cc/150?u=10",
+  "date": "Nov 20, 2025",
+  "readTime": "8 min read"
+},
+{
+  "_id": {
+    "$oid": "6941372d09f162857faa0d85"
+  },
+  "title": "The Power of TypeScript",
+  "excerpt": "Why static typing can save you hours of debugging and how to migrate your JS project to TS.",
+  "image": "https://picsum.photos/seed/typescript/600/400",
+  "category": "Coding",
+  "author": "Robert Green",
+  "authorAvatar": "https://i.pravatar.cc/150?u=11",
+  "date": "Nov 18, 2025",
+  "readTime": "5 min read"
+},
+{
+  "_id": {
+    "$oid": "6941372d09f162857faa0d86"
+  },
+  "title": "Introduction to GraphQL",
+  "excerpt": "Stop over-fetching data. Learn how GraphQL compares to REST APIs and how to implement it.",
+  "image": "https://picsum.photos/seed/graphql/600/400",
+  "category": "Backend",
+  "author": "Nancy Hall",
+  "authorAvatar": "https://i.pravatar.cc/150?u=12",
+  "date": "Nov 15, 2025",
+  "readTime": "6 min read"
+},
+{
+  "_id": {
+    "$oid": "6941372d09f162857faa0d87"
+  },
+  "title": "UX Research Methodologies",
+  "excerpt": "How to conduct user interviews, A/B testing, and usability studies to build products people love.",
+  "image": "https://picsum.photos/seed/uxdesign/600/400",
+  "category": "Design",
+  "author": "Daniel King",
+  "authorAvatar": "https://i.pravatar.cc/150?u=13",
+  "date": "Nov 12, 2025",
+  "readTime": "7 min read"
+},
+{
+  "_id": {
+    "$oid": "6941372d09f162857faa0d88"
+  },
+  "title": "Cloud Computing: AWS vs Azure",
+  "excerpt": "A non-biased comparison of the top cloud providers to help you choose the right infrastructure.",
+  "image": "https://picsum.photos/seed/cloud/600/400",
+  "category": "DevOps",
+  "author": "Patricia Scott",
+  "authorAvatar": "https://i.pravatar.cc/150?u=14",
+  "date": "Nov 10, 2025",
+  "readTime": "10 min read"
+},
+{
+  "_id": {
+    "$oid": "6941372d09f162857faa0d89"
+  },
+  "title": "Web Accessibility (a11y) 101",
+  "excerpt": "Making the web inclusive. How to use ARIA labels and semantic HTML for screen readers.",
+  "image": "https://picsum.photos/seed/accessibility/600/400",
+  "category": "Development",
+  "author": "Kevin Young",
+  "authorAvatar": "https://i.pravatar.cc/150?u=15",
+  "date": "Nov 08, 2025",
+  "readTime": "5 min read"
+},
+{
+  "_id": {
+    "$oid": "6941372d09f162857faa0d8a"
+  },
+  "title": "Agile vs Waterfall Methodologies",
+  "excerpt": "Which project management style suits your team? A breakdown of sprints, kanban, and deadlines.",
+  "image": "https://picsum.photos/seed/agile/600/400",
+  "category": "Business",
+  "author": "Laura Adams",
+  "authorAvatar": "https://i.pravatar.cc/150?u=16",
+  "date": "Nov 05, 2025",
+  "readTime": "6 min read"
+},
+{
+  "_id": {
+    "$oid": "6941372d09f162857faa0d8b"
+  },
+  "title": "Machine Learning for Web Devs",
+  "excerpt": "Integrating ML models into web apps using TensorFlow.js without needing a PhD in math.",
+  "image": "https://picsum.photos/seed/machinelearning/600/400",
+  "category": "AI",
+  "author": "Brian Hill",
+  "authorAvatar": "https://i.pravatar.cc/150?u=17",
+  "date": "Nov 02, 2025",
+  "readTime": "8 min read"
+},
+{
+  "_id": {
+    "$oid": "6941372d09f162857faa0d8c"
+  },
+  "title": "SEO Strategies for Single Page Apps",
+  "excerpt": "Solving the crawling issues of React and Vue apps with Server-Side Rendering (SSR) and Next.js.",
+  "image": "https://picsum.photos/seed/seo/600/400",
+  "category": "Marketing",
+  "author": "Megan Baker",
+  "authorAvatar": "https://i.pravatar.cc/150?u=18",
+  "date": "Oct 30, 2025",
+  "readTime": "7 min read"
+},
+{
+  "_id": {
+    "$oid": "6941372d09f162857faa0d8d"
+  },
+  "title": "The Impact of 5G on Mobile Dev",
+  "excerpt": "Faster speeds and lower latency: How 5G is changing what is possible in mobile web experiences.",
+  "image": "https://picsum.photos/seed/5g/600/400",
+  "category": "Mobile",
+  "author": "Steven Gonzalez",
+  "authorAvatar": "https://i.pravatar.cc/150?u=19",
+  "date": "Oct 28, 2025",
+  "readTime": "4 min read"
+},
+{
+  "_id": {
+    "$oid": "6941372d09f162857faa0d8e"
+  },
+  "title": "Mental Health in Tech",
+  "excerpt": "Combating burnout, impostor syndrome, and finding a healthy work-life balance as a developer.",
+  "image": "https://picsum.photos/seed/mentalhealth/600/400",
+  "category": "Lifestyle",
+  "author": "Amanda Nelson",
+  "authorAvatar": "https://i.pravatar.cc/150?u=20",
+  "date": "Oct 25, 2025",
+  "readTime": "6 min read"
+},
+{
+  "_id": {
+    "$oid": "6941372d09f162857faa0d8f"
+  },
+  "title": "Git Workflow Best Practices",
+  "excerpt": "Mastering branching strategies, pull requests, and resolving merge conflicts efficiently.",
+  "image": "https://picsum.photos/seed/git/600/400",
+  "category": "Coding",
+  "author": "Jason Carter",
+  "authorAvatar": "https://i.pravatar.cc/150?u=21",
+  "date": "Oct 22, 2025",
+  "readTime": "5 min read"
+},
+{
+  "_id": {
+    "$oid": "6941372d09f162857faa0d90"
+  },
+  "title": "Blockchain Beyond Cryptocurrency",
+  "excerpt": "Smart contracts and decentralized apps (DApps): How blockchain is reshaping digital trust.",
+  "image": "https://picsum.photos/seed/blockchain/600/400",
+  "category": "Technology",
+  "author": "Rebecca Mitchell",
+  "authorAvatar": "https://i.pravatar.cc/150?u=22",
+  "date": "Oct 20, 2025",
+  "readTime": "9 min read"
+},
+{
+  "_id": {
+    "$oid": "6941372d09f162857faa0d91"
+  },
+  "title": "Understanding Kubernetes",
+  "excerpt": "Orchestrating containerized applications at scale. Key concepts: Pods, Services, and Deployments.",
+  "image": "https://picsum.photos/seed/k8s/600/400",
+  "category": "DevOps",
+  "author": "Jeffrey Roberts",
+  "authorAvatar": "https://i.pravatar.cc/150?u=23",
+  "date": "Oct 18, 2025",
+  "readTime": "11 min read"
+},
+{
+  "_id": {
+    "$oid": "6941372d09f162857faa0d92"
+  },
+  "title": "Figma for Developers",
+  "excerpt": "How to navigate Figma files, export assets, and inspect CSS to translate designs into code accurately.",
+  "image": "https://picsum.photos/seed/figma/600/400",
+  "category": "Design",
+  "author": "Kathleen Phillips",
+  "authorAvatar": "https://i.pravatar.cc/150?u=24",
+  "date": "Oct 15, 2025",
+  "readTime": "5 min read"
+},
+{
+  "_id": {
+    "$oid": "6941372d09f162857faa0d93"
+  },
+  "title": "Open Source Contributions",
+  "excerpt": "How to make your first PR to an open source project and give back to the developer community.",
+  "image": "https://picsum.photos/seed/opensource/600/400",
+  "category": "Community",
+  "author": "Gary Campbell",
+  "authorAvatar": "https://i.pravatar.cc/150?u=25",
+  "date": "Oct 12, 2025",
+  "readTime": "4 min read"
+},
+{
+  "_id": {
+    "$oid": "6941372d09f162857faa0d94"
+  },
+  "title": "The Evolution of Internet of Things",
+  "excerpt": "Connecting everyday devices to the internet. Protocols, security challenges, and future trends.",
+  "image": "https://picsum.photos/seed/iot/600/400",
+  "category": "Technology",
+  "author": "Angela Parker",
+  "authorAvatar": "https://i.pravatar.cc/150?u=26",
+  "date": "Oct 10, 2025",
+  "readTime": "7 min read"
+},
+{
+  "_id": {
+    "$oid": "6941374409f162857faa0d95"
+  },
+  "title": "The Future of Web Development in 2025",
+  "excerpt": "Explore the latest trends in AI-driven coding, WebAssembly, and the next generation of JavaScript frameworks.",
+  "image": "https://picsum.photos/seed/futureweb/600/400",
+  "category": "Technology",
+  "author": "Alex Johnson",
+  "authorAvatar": "https://i.pravatar.cc/150?u=1",
+  "date": "Dec 15, 2025",
+  "readTime": "5 min read"
+},
+{
+  "_id": {
+    "$oid": "6941374409f162857faa0d96"
+  },
+  "title": "Mastering React Hooks: A Deep Dive",
+  "excerpt": "Understand the nuances of useEffect, useMemo, and useCallback to optimize your application's performance.",
+  "image": "https://picsum.photos/seed/reacthooks/600/400",
+  "category": "Coding",
+  "author": "Sarah Smith",
+  "authorAvatar": "https://i.pravatar.cc/150?u=2",
+  "date": "Dec 12, 2025",
+  "readTime": "8 min read"
+},
+{
+  "_id": {
+    "$oid": "6941374409f162857faa0d97"
+  },
+  "title": "10 Tips for a Minimalist UI Design",
+  "excerpt": "Less is more. Learn how to use negative space, typography, and color to create stunning user interfaces.",
+  "image": "https://picsum.photos/seed/minimalist/600/400",
+  "category": "Design",
+  "author": "David Lee",
+  "authorAvatar": "https://i.pravatar.cc/150?u=3",
+  "date": "Dec 10, 2025",
+  "readTime": "4 min read"
+},
+{
+  "_id": {
+    "$oid": "6941374409f162857faa0d98"
+  },
+  "title": "Building Scalable Backend Systems",
+  "excerpt": "Strategies for database sharding, caching, and microservices architecture for high-traffic applications.",
+  "image": "https://picsum.photos/seed/backend/600/400",
+  "category": "Backend",
+  "author": "Maria Garcia",
+  "authorAvatar": "https://i.pravatar.cc/150?u=4",
+  "date": "Dec 08, 2025",
+  "readTime": "10 min read"
+},
+{
+  "_id": {
+    "$oid": "6941374409f162857faa0d99"
+  },
+  "title": "The Rise of Progressive Web Apps",
+  "excerpt": "Why PWAs are becoming the preferred choice for businesses looking to target mobile users without an app store.",
+  "image": "https://picsum.photos/seed/mobilepwa/600/400",
+  "category": "Mobile",
+  "author": "James Wilson",
+  "authorAvatar": "https://i.pravatar.cc/150?u=5",
+  "date": "Dec 05, 2025",
+  "readTime": "6 min read"
+},
+{
+  "_id": {
+    "$oid": "6941374409f162857faa0d9a"
+  },
+  "title": "Effective Remote Team Management",
+  "excerpt": "Tools and techniques to keep your distributed engineering team productive, happy, and connected.",
+  "image": "https://picsum.photos/seed/remote/600/400",
+  "category": "Business",
+  "author": "Linda Taylor",
+  "authorAvatar": "https://i.pravatar.cc/150?u=6",
+  "date": "Dec 01, 2025",
+  "readTime": "7 min read"
+},
+{
+  "_id": {
+    "$oid": "6941374409f162857faa0d9b"
+  },
+  "title": "Understanding CSS Grid vs Flexbox",
+  "excerpt": "A comprehensive guide on when to use Grid layout versus Flexbox for modern responsive web design.",
+  "image": "https://picsum.photos/seed/csslayout/600/400",
+  "category": "Design",
+  "author": "Emily Chen",
+  "authorAvatar": "https://i.pravatar.cc/150?u=7",
+  "date": "Nov 28, 2025",
+  "readTime": "6 min read"
+},
+{
+  "_id": {
+    "$oid": "6941374409f162857faa0d9c"
+  },
+  "title": "Python for Data Science Beginners",
+  "excerpt": "Get started with Pandas, NumPy, and Matplotlib to analyze data and visualize insights effectively.",
+  "image": "https://picsum.photos/seed/python/600/400",
+  "category": "Data Science",
+  "author": "Michael Brown",
+  "authorAvatar": "https://i.pravatar.cc/150?u=8",
+  "date": "Nov 25, 2025",
+  "readTime": "9 min read"
+},
+{
+  "_id": {
+    "$oid": "6941374409f162857faa0d9d"
+  },
+  "title": "Cybersecurity Best Practices for 2026",
+  "excerpt": "Protect your applications from SQL injection, XSS, and other common vulnerabilities with these tips.",
+  "image": "https://picsum.photos/seed/security/600/400",
+  "category": "Security",
+  "author": "Chris Evans",
+  "authorAvatar": "https://i.pravatar.cc/150?u=9",
+  "date": "Nov 22, 2025",
+  "readTime": "7 min read"
+},
+{
+  "_id": {
+    "$oid": "6941374409f162857faa0d9e"
+  },
+  "title": "Dockerizing Your Node.js Application",
+  "excerpt": "Step-by-step guide to creating Docker images and containers for consistent development environments.",
+  "image": "https://picsum.photos/seed/docker/600/400",
+  "category": "DevOps",
+  "author": "Jessica White",
+  "authorAvatar": "https://i.pravatar.cc/150?u=10",
+  "date": "Nov 20, 2025",
+  "readTime": "8 min read"
+},
+{
+  "_id": {
+    "$oid": "6941374409f162857faa0d9f"
+  },
+  "title": "The Power of TypeScript",
+  "excerpt": "Why static typing can save you hours of debugging and how to migrate your JS project to TS.",
+  "image": "https://picsum.photos/seed/typescript/600/400",
+  "category": "Coding",
+  "author": "Robert Green",
+  "authorAvatar": "https://i.pravatar.cc/150?u=11",
+  "date": "Nov 18, 2025",
+  "readTime": "5 min read"
+},
+{
+  "_id": {
+    "$oid": "6941374409f162857faa0da0"
+  },
+  "title": "Introduction to GraphQL",
+  "excerpt": "Stop over-fetching data. Learn how GraphQL compares to REST APIs and how to implement it.",
+  "image": "https://picsum.photos/seed/graphql/600/400",
+  "category": "Backend",
+  "author": "Nancy Hall",
+  "authorAvatar": "https://i.pravatar.cc/150?u=12",
+  "date": "Nov 15, 2025",
+  "readTime": "6 min read"
+},
+{
+  "_id": {
+    "$oid": "6941374409f162857faa0da1"
+  },
+  "title": "UX Research Methodologies",
+  "excerpt": "How to conduct user interviews, A/B testing, and usability studies to build products people love.",
+  "image": "https://picsum.photos/seed/uxdesign/600/400",
+  "category": "Design",
+  "author": "Daniel King",
+  "authorAvatar": "https://i.pravatar.cc/150?u=13",
+  "date": "Nov 12, 2025",
+  "readTime": "7 min read"
+},
+{
+  "_id": {
+    "$oid": "6941374409f162857faa0da2"
+  },
+  "title": "Cloud Computing: AWS vs Azure",
+  "excerpt": "A non-biased comparison of the top cloud providers to help you choose the right infrastructure.",
+  "image": "https://picsum.photos/seed/cloud/600/400",
+  "category": "DevOps",
+  "author": "Patricia Scott",
+  "authorAvatar": "https://i.pravatar.cc/150?u=14",
+  "date": "Nov 10, 2025",
+  "readTime": "10 min read"
+},
+{
+  "_id": {
+    "$oid": "6941374409f162857faa0da3"
+  },
+  "title": "Web Accessibility (a11y) 101",
+  "excerpt": "Making the web inclusive. How to use ARIA labels and semantic HTML for screen readers.",
+  "image": "https://picsum.photos/seed/accessibility/600/400",
+  "category": "Development",
+  "author": "Kevin Young",
+  "authorAvatar": "https://i.pravatar.cc/150?u=15",
+  "date": "Nov 08, 2025",
+  "readTime": "5 min read"
+},
+{
+  "_id": {
+    "$oid": "6941374409f162857faa0da4"
+  },
+  "title": "Agile vs Waterfall Methodologies",
+  "excerpt": "Which project management style suits your team? A breakdown of sprints, kanban, and deadlines.",
+  "image": "https://picsum.photos/seed/agile/600/400",
+  "category": "Business",
+  "author": "Laura Adams",
+  "authorAvatar": "https://i.pravatar.cc/150?u=16",
+  "date": "Nov 05, 2025",
+  "readTime": "6 min read"
+},
+{
+  "_id": {
+    "$oid": "6941374409f162857faa0da5"
+  },
+  "title": "Machine Learning for Web Devs",
+  "excerpt": "Integrating ML models into web apps using TensorFlow.js without needing a PhD in math.",
+  "image": "https://picsum.photos/seed/machinelearning/600/400",
+  "category": "AI",
+  "author": "Brian Hill",
+  "authorAvatar": "https://i.pravatar.cc/150?u=17",
+  "date": "Nov 02, 2025",
+  "readTime": "8 min read"
+},
+{
+  "_id": {
+    "$oid": "6941374409f162857faa0da6"
+  },
+  "title": "SEO Strategies for Single Page Apps",
+  "excerpt": "Solving the crawling issues of React and Vue apps with Server-Side Rendering (SSR) and Next.js.",
+  "image": "https://picsum.photos/seed/seo/600/400",
+  "category": "Marketing",
+  "author": "Megan Baker",
+  "authorAvatar": "https://i.pravatar.cc/150?u=18",
+  "date": "Oct 30, 2025",
+  "readTime": "7 min read"
+},
+{
+  "_id": {
+    "$oid": "6941374409f162857faa0da7"
+  },
+  "title": "The Impact of 5G on Mobile Dev",
+  "excerpt": "Faster speeds and lower latency: How 5G is changing what is possible in mobile web experiences.",
+  "image": "https://picsum.photos/seed/5g/600/400",
+  "category": "Mobile",
+  "author": "Steven Gonzalez",
+  "authorAvatar": "https://i.pravatar.cc/150?u=19",
+  "date": "Oct 28, 2025",
+  "readTime": "4 min read"
+},
+{
+  "_id": {
+    "$oid": "6941374409f162857faa0da8"
+  },
+  "title": "Mental Health in Tech",
+  "excerpt": "Combating burnout, impostor syndrome, and finding a healthy work-life balance as a developer.",
+  "image": "https://picsum.photos/seed/mentalhealth/600/400",
+  "category": "Lifestyle",
+  "author": "Amanda Nelson",
+  "authorAvatar": "https://i.pravatar.cc/150?u=20",
+  "date": "Oct 25, 2025",
+  "readTime": "6 min read"
+},
+{
+  "_id": {
+    "$oid": "6941374409f162857faa0da9"
+  },
+  "title": "Git Workflow Best Practices",
+  "excerpt": "Mastering branching strategies, pull requests, and resolving merge conflicts efficiently.",
+  "image": "https://picsum.photos/seed/git/600/400",
+  "category": "Coding",
+  "author": "Jason Carter",
+  "authorAvatar": "https://i.pravatar.cc/150?u=21",
+  "date": "Oct 22, 2025",
+  "readTime": "5 min read"
+},
+{
+  "_id": {
+    "$oid": "6941374409f162857faa0daa"
+  },
+  "title": "Blockchain Beyond Cryptocurrency",
+  "excerpt": "Smart contracts and decentralized apps (DApps): How blockchain is reshaping digital trust.",
+  "image": "https://picsum.photos/seed/blockchain/600/400",
+  "category": "Technology",
+  "author": "Rebecca Mitchell",
+  "authorAvatar": "https://i.pravatar.cc/150?u=22",
+  "date": "Oct 20, 2025",
+  "readTime": "9 min read"
+},
+{
+  "_id": {
+    "$oid": "6941374409f162857faa0dab"
+  },
+  "title": "Understanding Kubernetes",
+  "excerpt": "Orchestrating containerized applications at scale. Key concepts: Pods, Services, and Deployments.",
+  "image": "https://picsum.photos/seed/k8s/600/400",
+  "category": "DevOps",
+  "author": "Jeffrey Roberts",
+  "authorAvatar": "https://i.pravatar.cc/150?u=23",
+  "date": "Oct 18, 2025",
+  "readTime": "11 min read"
+},
+{
+  "_id": {
+    "$oid": "6941374409f162857faa0dac"
+  },
+  "title": "Figma for Developers",
+  "excerpt": "How to navigate Figma files, export assets, and inspect CSS to translate designs into code accurately.",
+  "image": "https://picsum.photos/seed/figma/600/400",
+  "category": "Design",
+  "author": "Kathleen Phillips",
+  "authorAvatar": "https://i.pravatar.cc/150?u=24",
+  "date": "Oct 15, 2025",
+  "readTime": "5 min read"
+},
+{
+  "_id": {
+    "$oid": "6941374409f162857faa0dad"
+  },
+  "title": "Open Source Contributions",
+  "excerpt": "How to make your first PR to an open source project and give back to the developer community.",
+  "image": "https://picsum.photos/seed/opensource/600/400",
+  "category": "Community",
+  "author": "Gary Campbell",
+  "authorAvatar": "https://i.pravatar.cc/150?u=25",
+  "date": "Oct 12, 2025",
+  "readTime": "4 min read"
+},
+{
+  "_id": {
+    "$oid": "6941374409f162857faa0dae"
+  },
+  "title": "The Evolution of Internet of Things",
+  "excerpt": "Connecting everyday devices to the internet. Protocols, security challenges, and future trends.",
+  "image": "https://picsum.photos/seed/iot/600/400",
+  "category": "Technology",
+  "author": "Angela Parker",
+  "authorAvatar": "https://i.pravatar.cc/150?u=26",
+  "date": "Oct 10, 2025",
+  "readTime": "7 min read"
+},
+{
+  "_id": {
+    "$oid": "69427fc16337ac825d231704"
+  },
+  "title": "asd",
+  "excerpt": "tyui",
+  "content": "poijhv  jkbhn klm,m",
+  "image": "https://picsum.photos/800/600",
+  "category": "Technology",
+  "author": "admin",
+  "authorAvatar": "https://images.pexels.com/photos/25758/pexels-photo.jpg",
+  "readTime": "5 min read",
+  "createdAt": {
+    "$date": "2025-12-17T10:02:41.482Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69428137b8736425fb9eb42d"
+  },
+  "title": "wertyui",
+  "excerpt": "asda",
+  "content": "sdsd",
+  "image": "https://picsum.photos/800/600",
+  "category": "Design",
+  "author": "admin",
+  "authorAvatar": "https://images.pexels.com/photos/25758/pexels-photo.jpg",
+  "readTime": "5 min read",
+  "createdAt": {
+    "$date": "2025-12-17T10:08:55.224Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "694281fdb8736425fb9eb442"
+  },
+  "title": "3rd one ",
+  "excerpt": "yuio",
+  "content": "jihukjnlkasfpoa  kadan  jihukjnlkasfpoa  kadan jihukjnlkasfpoa  kadan ",
+  "image": "http://localhost:5000/uploads/blog-1765966333265-720510876.jpeg",
+  "category": "Technology",
+  "authorAvatar": "https://images.pexels.com/photos/25758/pexels-photo.jpg",
+  "readTime": "5 min read",
+  "createdAt": {
+    "$date": "2025-12-17T10:12:13.284Z"
+  },
+  "__v": 0,
+  "author": "admin"
+},
+{
+  "_id": {
+    "$oid": "694287563a2f2e5f5a9ed7ea"
+  },
+  "title": "decision tree",
+  "excerpt": "decision tree",
+  "content": "decision tree decision treedecision treedecision treedecision treedecision treedecision treedecision treedecision treedecision treedecision treedecision treedecision treedecision treedecision treedecision treedecision treedecision treedecision treedecision treedecision treedecision treedecision tree",
+  "image": "http://localhost:5000/uploads/blog-1765967702156-598356608.jpeg",
+  "category": "Technology",
+  "author": "manish",
+  "authorAvatar": "https://images.pexels.com/photos/14661/pexels-photo-14661.jpeg",
+  "readTime": "5 min read",
+  "createdAt": {
+    "$date": "2025-12-17T10:35:02.169Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6943a0978ea99a00007b5b9f"
+  },
+  "title": "latest",
+  "excerpt": "dtdty ",
+  "content": " cvbhnml,;a blogApi.js:65  PUT http://localhost:5000/api/blogs/6943a0978ea99a00007b5b9f/ 401 (Unauthorized)\ndispatchXhrRequest @ axios.js?v=662dc605:1696\nxhr @ axios.js?v=662dc605:1573\ndispatchRequest @ axios.js?v=662dc605:2107\n_request @ axios.js?v=662dc605:2327\nrequest @ axios.js?v=662dc605:2219\nhttpMethod @ axios.js?v=662dc605:2356\nwrap @ axios.js?v=662dc605:8\nupdate @ blogApi.js:65\nhandleSubmit @ EditBlog.jsx:48\nexecuteDispatch @ react-dom_client.js?v=662dc605:13622\nrunWithFiberInDEV @ react-dom_client.js?v=662dc605:997\nprocessDispatchQueue @ react-dom_client.js?v=662dc605:13658\n(anonymous) @ react-dom_client.js?v=662dc605:14071\nbatchedUpdates$1 @ react-dom_client.js?v=662dc605:2626\ndispatchEventForPluginEventSystem @ react-dom_client.js?v=662dc605:13763\ndispatchEvent @ react-dom_client.js?v=662dc605:16784\ndispatchDiscreteEvent @ react-dom_client.js?v=662dc605:16765Understand this error\nblogApi.js:69 Error updating blog 6943a0978ea99a00007b5b9f: AxiosError {message: 'Request failed with status code 401', name: 'AxiosError', code: 'ERR_BAD_REQUEST', config: {…}, request: XMLHttpRequest, …}\nupdate @ blogApi.js:69\nawait in update\nhandleSubmit @ EditBlog.jsx:48\nexecuteDispatch @ react-dom_client.js?v=662dc605:13622\nrunWithFiberInDEV @ react-dom_client.js?v=662dc605:997\nprocessDispatchQueue @ react-dom_client.js?v=662dc605:13658\n(anonymous) @ react-dom_client.js?v=662dc605:14071\nbatchedUpdates$1 @ react-dom_client.js?v=662dc605:2626\ndispatchEventForPluginEventSystem @ react-dom_client.js?v=662dc605:13763\ndispatchEvent @ react-dom_client.js?v=662dc605:16784\ndispatchDiscreteEvent @ react-dom_client.js?v=662dc605:16765Understand this error\nEditBlog.jsx:51 Update failed",
+  "image": "http://localhost:5000/uploads/blog-1766039703472-984020235.jpeg",
+  "category": "Technology", 
+  "publish": false,
+  "authorAvatar": "https://images.pexels.com/photos/25758/pexels-photo.jpg",
+  "readTime": "5 min read",
+  "createdAt": {
+    "$date": "2025-12-18T06:35:03.510Z"
+  },
+  "__v": 0,
+  "author": "admin"
+},
+{
+  "_id": {
+    "$oid": "6943be01b3d6bdcc277ef636"
+  },
+  "title": "my new blog : WWE",
+  "excerpt": "asdsf",
+  "content": "asdada",
+  "publish": false,
+  "image": "http://localhost:5000/uploads/blog-1766047233301-423846296.jpeg",
+  "category": "Technology",
+  "author": "admin",
+  "authorAvatar": "http://localhost:5000/uploads/user-694274eff0db38b328ed76b5-1766039762253.jpeg",
+  "readTime": "5 min read",
+  "createdAt": {
+    "$date": "2025-12-18T08:40:33.323Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6943c770b3d6bdcc277ef6ec"
+  },
+  "title": "new data",
+  "excerpt": "new shor blog",
+  "content": "The error 401 Unauthorized on a PUT request means your Backend is rejecting the update because it doesn't know who the user is.\r\n\r\nThis usually happens for one of two reasons:\r\n\r\nFrontend: The blogApi.js is not sending the Session Cookie (credentials) with the request.\r\n\r\nBackend: The updateBlog route is protected, and the authentication check is failing.\r\n\r\nHere is the step-by-step fix.\r\n\r\nStep 1: Fix Frontend src/api/blogApi.js (Critical)\r\nYou must ensure that the update function uses the api instance that has withCredentials: true. If you use plain axios.put, it won't send cookies.",
+  "image": "http://localhost:5000/uploads/blog-1766049648757-912338730.jpeg",
+  "category": "Coding",
+  "author": "admin",
+  "publish": false,
+  "authorAvatar": "http://localhost:5000/uploads/user-694274eff0db38b328ed76b5-1766039762253.jpeg",
+  "readTime": "7 min read",
+  "createdAt": {
+    "$date": "2025-12-18T09:20:48.910Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6943c7dcb3d6bdcc277ef707"
+  },
+  "title": "new 1",
+  "excerpt": "www",
+  "content": "The error 401 Unauthorized on a PUT request means your Backend is rejecting the update because it doesn't know who the user is.\r\n\r\nThis usually happens for one of two reasons:\r\n\r\nFrontend: The blogApi.js is not sending the Session Cookie (credentials) with the request.\r\n\r\nBackend: The updateBlog route is protected, and the authentication check is failing.\r\n\r\nHere is the step-by-step fix.\r\n\r\nStep 1: Fix Frontend src/api/blogApi.js (Critical)\r\nYou must ensure that the update function uses the api instance that has withCredentials: true. If you use plain axios.put, it won't send cookies.",
+  "image": "http://localhost:5000/uploads/blog-1766049756426-41847773.jpeg",
+  "category": "Technology",
+  "author": "admin",
+  "publish": false,
+  "authorAvatar": "http://localhost:5000/uploads/user-694274eff0db38b328ed76b5-1766039762253.jpeg",
+  "readTime": "5 min read",
+  "createdAt": {
+    "$date": "2025-12-18T09:22:36.442Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6943c869b3d6bdcc277ef715"
+  },
+  "title": "asd",
+  "excerpt": "www",
+  "content": "aThe error 401 Unauthorized on a PUT request means your Backend is rejecting the update because it doesn't know who the user is.\n\nThis usually happens for one of two reasons:\n\nFrontend: The blogApi.js is not sending the Session Cookie (credentials) with the request.\n\nBackend: The updateBlog route is protected, and the authentication check is failing.\n\nHere is the step-by-step fix.\n\nStep 1: Fix Frontend src/api/blogApi.js (Critical)\nYou must ensure that the update function uses the api instance that has withCredentials: true. If you use plain axios.put, it won't send cookies.",
+  "image": "https://picsum.photos/800/600",
+  "category": "Technology",
+  "author": "Admin",
+  "publish": false,
+  "authorAvatar": "https://i.pravatar.cc/150",
+  "readTime": "5 min read",
+  "createdAt": {
+    "$date": "2025-12-18T09:24:57.454Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6943c8a0b3d6bdcc277ef723"
+  },
+  "title": "www",
+  "excerpt": "ww",
+  "content": "w",
+  "image": "http://localhost:5000/uploads/blog-1766049952318-836161757.jpeg",
+  "category": "Technology",
+  "author": "admin",
+  "publish": false,
+  "authorAvatar": "http://localhost:5000/uploads/user-694274eff0db38b328ed76b5-1766039762253.jpeg",
+  "readTime": "5 min read",
+  "createdAt": {
+    "$date": "2025-12-18T09:25:52.329Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6943c9c7b3d6bdcc277ef735"
+  },
+  "title": "asda",
+  "excerpt": "sd",
+  "content": "<h3>Why&nbsp;is&nbsp;this&nbsp;happening?</h3><ol><li><strong>First&nbsp;Append:</strong>&nbsp;Inside&nbsp;your&nbsp;Object.keys(formData).forEach&nbsp;loop,&nbsp;you&nbsp;append&nbsp;publish&nbsp;(because&nbsp;it&nbsp;exists&nbsp;in&nbsp;your&nbsp;state).</li><li><strong>Second&nbsp;Append:</strong>&nbsp;You&nbsp;manually&nbsp;run&nbsp;data.append(&#39;publish&#39;,&nbsp;!isDraft)&nbsp;at&nbsp;the&nbsp;end.</li><li><strong>Result:</strong>&nbsp;FormData&nbsp;sends&nbsp;both,&nbsp;and&nbsp;the&nbsp;backend&nbsp;receives&nbsp;[value1,&nbsp;value2],&nbsp;causing&nbsp;the&nbsp;Mongoose&nbsp;CastError.</li></ol><h3>The&nbsp;Fix</h3><p></p>",
+  "image": "http://localhost:5000/uploads/blog-1766050247092-157420511.jpeg",
+  "category": "Design",
+  "author": "admin",
+  "authorAvatar": "http://localhost:5000/uploads/user-694274eff0db38b328ed76b5-1766039762253.jpeg",
+  "readTime": "5 min read",
+  "createdAt": {
+    "$date": "2025-12-18T09:30:47.103Z"
+  },
+  "__v": 1,
+  "publish": false,
+  "tags": [
+    "html reac",
+    "React"
+  ]
+},
+{
+  "_id": {
+    "$oid": "6943d7073bc45e5cdf89c045"
+  },
+  "title": "new 1",
+  "excerpt": "short one",
+  "content": "<p><strong><em>We&nbsp;will&nbsp;focus&nbsp;on&nbsp;providing&nbsp;all&nbsp;the&nbsp;low-level&nbsp;tools&nbsp;needed&nbsp;to&nbsp;build&nbsp;a&nbsp;rich&nbsp;user-interface&nbsp;with&nbsp;React.&nbsp;Once&nbsp;we&nbsp;implement&nbsp;the&nbsp;Material&nbsp;Design&nbsp;guidelines&nbsp;(which&nbsp;is&nbsp;a&nbsp;bar&nbsp;set&nbsp;quite&nbsp;high),&nbsp;you&nbsp;should&nbsp;be&nbsp;able&nbsp;to&nbsp;take&nbsp;advantage&nbsp;of&nbsp;it&nbsp;for&nbsp;your&nbsp;own&nbsp;business&nbsp;with&nbsp;any&nbsp;style&nbsp;customization&nbsp;needed.&nbsp;We&nbsp;want&nbsp;to&nbsp;see&nbsp;companies&nbsp;succeeding&nbsp;\nusing&nbsp;Material&nbsp;UI&nbsp;in&nbsp;a&nbsp;way&nbsp;that&nbsp;matches&\nnbsp;their&nbsp;brand,&nbsp;close&nbsp;to&nbsp;the&nbsp;\nmaterial&nbsp;philosophy&nbsp;or&nbsp;not.&nbsp;We&nbsp;don&#39;t&nbsp;want&nbsp;them&nbsp;to&nbsp;feel&nbsp;that&nbsp;their&nbsp;UI&nbsp;simply&nbsp;looks&nbsp;like&nbsp;another&nbsp;Google&nbsp;product.</em></strong></p><p>From&nbsp;a&nbsp;developer&#39;s&nbsp;point&nbsp;of&nbsp;view,&nbsp;we&nbsp;want&nbsp;Material&nbsp;UI&nbsp;to:</p><ol><li>Deliver&nbsp;on&nbsp;fully&nbsp;encapsulated&nbsp;/&nbsp;composable&nbsp;React&nbsp;components.</li><li>Be&nbsp;themeable&nbsp;/&nbsp;customizable.</li><li>Be&nbsp;cross&nbsp;browser&nbsp;compatible&nbsp;and&nbsp;accessible.</li><li>Promote&nbsp;developer&nbsp;joy,&nbsp;a&nbsp;sense&nbsp;of&nbsp;community,&nbsp;and&nbsp;an&nbsp;environment&nbsp;where&nbsp;new&nbsp;and&nbsp;experienced&nbsp;developers&nbsp;can&nbsp;learn&nbsp;from&nbsp;each&nbsp;other.</li></ol><p></p>",
+  "image": "http://localhost:5000/uploads/blog-1766053639638-336520640.jpeg",
+  "category": "Coding",
+  "author": "admin",
+  "publish": false,
+  "authorAvatar": "http://localhost:5000/uploads/user-694274eff0db38b328ed76b5-1766039762253.jpeg",
+  "readTime": "5 min read",
+  "createdAt": {
+    "$date": "2025-12-18T10:27:19.660Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6943da013bc45e5cdf89c0c2"
+  },
+  "title": "nnn",
+  "excerpt": "ssasdsd",
+  "content": "<h2><strong>We&nbsp;will&nbsp;focus&nbsp;on&nbsp;providing&nbsp;all&nbsp;the&nbsp;low-level&nbsp;tools&nbsp;needed&nbsp;to&nbsp;build&nbsp;a&nbsp;rich&nbsp;user-interface&nbsp;with&nbsp;React.&nbsp;Once&nbsp;we&nbsp;implement&nbsp;the&nbsp;Material&nbsp;Design&nbsp;guidelines&nbsp;(which&nbsp;is&nbsp;a&nbsp;bar&nbsp;set&nbsp;quite&nbsp;high),&nbsp;you&nbsp;should&nbsp;be&nbsp;able&nbsp;to&nbsp;take&nbsp;advantage&nbsp;of&nbsp;it&nbsp;for&nbsp;your&nbsp;own&nbsp;business&nbsp;with&nbsp;any&nbsp;style&nbsp;customization&nbsp;needed.&nbsp;We&nbsp;want&nbsp;to&nbsp;see&nbsp;companies&nbsp;succeeding&nbsp;using&nbsp;Material&nbsp;UI&nbsp;in&nbsp;a&nbsp;way&nbsp;that&nbsp;matches&nbsp;their&nbsp;brand,&nbsp;close&nbsp;to&nbsp;the&nbsp;material&nbsp;philosophy&nbsp;or&nbsp;not.&nbsp;We&nbsp;don&#39;t&nbsp;want&nbsp;them&nbsp;to&nbsp;feel&nbsp;that&nbsp;their&nbsp;UI&nbsp;simply&nbsp;looks&nbsp;like&nbsp;another&nbsp;Google&nbsp;product.</strong></h2><h2><strong>From&nbsp;a&nbsp;developer&#39;s&nbsp;point&nbsp;of&nbsp;view,&nbsp;we&nbsp;want&nbsp;Material&nbsp;UI&nbsp;to:</strong></h2><h2><strong>Deliver&nbsp;on&nbsp;fully&nbsp;encapsulated&nbsp;/&nbsp;composable&nbsp;React&nbsp;components.</strong></h2><h2><strong>Be&nbsp;themeable&nbsp;/&nbsp;customizable.</strong></h2><h2><strong>Be&nbsp;cross&nbsp;browser&nbsp;compatible&nbsp;and&nbsp;accessible.</strong></h2><h2><strong>Promote&nbsp;developer&nbsp;joy,&nbsp;a&nbsp;sense&nbsp;of&nbsp;community,&nbsp;and&nbsp;an&nbsp;environment&nbsp;where&nbsp;new&nbsp;and&nbsp;experienced&nbsp;developers&nbsp;can&nbsp;learn&nbsp;from&nbsp;each&nbsp;other.</strong></h2>",
+  "image": "http://localhost:5000/uploads/blog-1766054401354-727869097.jpeg",
+  "category": "Technology",
+  "author": "admin",
+  "publish": false,
+  "authorAvatar": "http://localhost:5000/uploads/user-694274eff0db38b328ed76b5-1766039762253.jpeg",
+  "readTime": "5 min read",
+  "createdAt": {
+    "$date": "2025-12-18T10:40:01.372Z"
+  },
+  "__v": 3,
+  "tags": [
+    "HTML",
+    "css"
+  ],
+  "publish": true
+}]

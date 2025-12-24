@@ -1,0 +1,288 @@
+[ 
+  {
+     
+    "title": "The Future of Web Development in 2025",
+    "excerpt": "Explore the latest trends in AI-driven coding, WebAssembly, and the next generation of JavaScript frameworks.",
+    "image": "https://picsum.photos/seed/futureweb/600/400",
+    "category": "Technology",
+    "author": "Alex Johnson",
+    "authorAvatar": "https://i.pravatar.cc/150?u=1",
+    "date": "Dec 15, 2025",
+    "readTime": "5 min read"
+  },
+  {
+     
+    "title": "Mastering React Hooks: A Deep Dive",
+    "excerpt": "Understand the nuances of useEffect, useMemo, and useCallback to optimize your application's performance.",
+    "image": "https://picsum.photos/seed/reacthooks/600/400",
+    "category": "Coding",
+    "author": "Sarah Smith",
+    "authorAvatar": "https://i.pravatar.cc/150?u=2",
+    "date": "Dec 12, 2025",
+    "readTime": "8 min read"
+  },
+  {
+     
+    "title": "10 Tips for a Minimalist UI Design",
+    "excerpt": "Less is more. Learn how to use negative space, typography, and color to create stunning user interfaces.",
+    "image": "https://picsum.photos/seed/minimalist/600/400",
+    "category": "Design",
+    "author": "David Lee",
+    "authorAvatar": "https://i.pravatar.cc/150?u=3",
+    "date": "Dec 10, 2025",
+    "readTime": "4 min read"
+  },
+  {
+     
+    "title": "Building Scalable Backend Systems",
+    "excerpt": "Strategies for database sharding, caching, and microservices architecture for high-traffic applications.",
+    "image": "https://picsum.photos/seed/backend/600/400",
+    "category": "Backend",
+    "author": "Maria Garcia",
+    "authorAvatar": "https://i.pravatar.cc/150?u=4",
+    "date": "Dec 08, 2025",
+    "readTime": "10 min read"
+  },
+  {
+     
+    "title": "The Rise of Progressive Web Apps",
+    "excerpt": "Why PWAs are becoming the preferred choice for businesses looking to target mobile users without an app store.",
+    "image": "https://picsum.photos/seed/mobilepwa/600/400",
+    "category": "Mobile",
+    "author": "James Wilson",
+    "authorAvatar": "https://i.pravatar.cc/150?u=5",
+    "date": "Dec 05, 2025",
+    "readTime": "6 min read"
+  },
+  {
+     
+    "title": "Effective Remote Team Management",
+    "excerpt": "Tools and techniques to keep your distributed engineering team productive, happy, and connected.",
+    "image": "https://picsum.photos/seed/remote/600/400",
+    "category": "Business",
+    "author": "Linda Taylor",
+    "authorAvatar": "https://i.pravatar.cc/150?u=6",
+    "date": "Dec 01, 2025",
+    "readTime": "7 min read"
+  },
+  {
+     
+    "title": "Understanding CSS Grid vs Flexbox",
+    "excerpt": "A comprehensive guide on when to use Grid layout versus Flexbox for modern responsive web design.",
+    "image": "https://picsum.photos/seed/csslayout/600/400",
+    "category": "Design",
+    "author": "Emily Chen",
+    "authorAvatar": "https://i.pravatar.cc/150?u=7",
+    "date": "Nov 28, 2025",
+    "readTime": "6 min read"
+  },
+  {
+     
+    "title": "Python for Data Science Beginners",
+    "excerpt": "Get started with Pandas, NumPy, and Matplotlib to analyze data and visualize insights effectively.",
+    "image": "https://picsum.photos/seed/python/600/400",
+    "category": "Data Science",
+    "author": "Michael Brown",
+    "authorAvatar": "https://i.pravatar.cc/150?u=8",
+    "date": "Nov 25, 2025",
+    "readTime": "9 min read"
+  },
+  {
+     
+    "title": "Cybersecurity Best Practices for 2026",
+    "excerpt": "Protect your applications from SQL injection, XSS, and other common vulnerabilities with these tips.",
+    "image": "https://picsum.photos/seed/security/600/400",
+    "category": "Security",
+    "author": "Chris Evans",
+    "authorAvatar": "https://i.pravatar.cc/150?u=9",
+    "date": "Nov 22, 2025",
+    "readTime": "7 min read"
+  },
+  {
+     
+    "title": "Dockerizing Your Node.js Application",
+    "excerpt": "Step-by-step guide to creating Docker images and containers for consistent development environments.",
+    "image": "https://picsum.photos/seed/docker/600/400",
+    "category": "DevOps",
+    "author": "Jessica White",
+    "authorAvatar": "https://i.pravatar.cc/150?u=10",
+    "date": "Nov 20, 2025",
+    "readTime": "8 min read"
+  },
+  {
+     
+    "title": "The Power of TypeScript",
+    "excerpt": "Why static typing can save you hours of debugging and how to migrate your JS project to TS.",
+    "image": "https://picsum.photos/seed/typescript/600/400",
+    "category": "Coding",
+    "author": "Robert Green",
+    "authorAvatar": "https://i.pravatar.cc/150?u=11",
+    "date": "Nov 18, 2025",
+    "readTime": "5 min read"
+  },
+  {
+     
+    "title": "Introduction to GraphQL",
+    "excerpt": "Stop over-fetching data. Learn how GraphQL compares to REST APIs and how to implement it.",
+    "image": "https://picsum.photos/seed/graphql/600/400",
+    "category": "Backend",
+    "author": "Nancy Hall",
+    "authorAvatar": "https://i.pravatar.cc/150?u=12",
+    "date": "Nov 15, 2025",
+    "readTime": "6 min read"
+  },
+  {
+     
+    "title": "UX Research Methodologies",
+    "excerpt": "How to conduct user interviews, A/B testing, and usability studies to build products people love.",
+    "image": "https://picsum.photos/seed/uxdesign/600/400",
+    "category": "Design",
+    "author": "Daniel King",
+    "authorAvatar": "https://i.pravatar.cc/150?u=13",
+    "date": "Nov 12, 2025",
+    "readTime": "7 min read"
+  },
+  {
+     
+    "title": "Cloud Computing: AWS vs Azure",
+    "excerpt": "A non-biased comparison of the top cloud providers to help you choose the right infrastructure.",
+    "image": "https://picsum.photos/seed/cloud/600/400",
+    "category": "DevOps",
+    "author": "Patricia Scott",
+    "authorAvatar": "https://i.pravatar.cc/150?u=14",
+    "date": "Nov 10, 2025",
+    "readTime": "10 min read"
+  },
+  {
+     
+    "title": "Web Accessibility (a11y) 101",
+    "excerpt": "Making the web inclusive. How to use ARIA labels and semantic HTML for screen readers.",
+    "image": "https://picsum.photos/seed/accessibility/600/400",
+    "category": "Development",
+    "author": "Kevin Young",
+    "authorAvatar": "https://i.pravatar.cc/150?u=15",
+    "date": "Nov 08, 2025",
+    "readTime": "5 min read"
+  },
+  {
+     
+    "title": "Agile vs Waterfall Methodologies",
+    "excerpt": "Which project management style suits your team? A breakdown of sprints, kanban, and deadlines.",
+    "image": "https://picsum.photos/seed/agile/600/400",
+    "category": "Business",
+    "author": "Laura Adams",
+    "authorAvatar": "https://i.pravatar.cc/150?u=16",
+    "date": "Nov 05, 2025",
+    "readTime": "6 min read"
+  },
+  {
+     
+    "title": "Machine Learning for Web Devs",
+    "excerpt": "Integrating ML models into web apps using TensorFlow.js without needing a PhD in math.",
+    "image": "https://picsum.photos/seed/machinelearning/600/400",
+    "category": "AI",
+    "author": "Brian Hill",
+    "authorAvatar": "https://i.pravatar.cc/150?u=17",
+    "date": "Nov 02, 2025",
+    "readTime": "8 min read"
+  },
+  {
+     
+    "title": "SEO Strategies for Single Page Apps",
+    "excerpt": "Solving the crawling issues of React and Vue apps with Server-Side Rendering (SSR) and Next.js.",
+    "image": "https://picsum.photos/seed/seo/600/400",
+    "category": "Marketing",
+    "author": "Megan Baker",
+    "authorAvatar": "https://i.pravatar.cc/150?u=18",
+    "date": "Oct 30, 2025",
+    "readTime": "7 min read"
+  },
+  {
+     
+    "title": "The Impact of 5G on Mobile Dev",
+    "excerpt": "Faster speeds and lower latency: How 5G is changing what is possible in mobile web experiences.",
+    "image": "https://picsum.photos/seed/5g/600/400",
+    "category": "Mobile",
+    "author": "Steven Gonzalez",
+    "authorAvatar": "https://i.pravatar.cc/150?u=19",
+    "date": "Oct 28, 2025",
+    "readTime": "4 min read"
+  },
+  {
+     
+    "title": "Mental Health in Tech",
+    "excerpt": "Combating burnout, impostor syndrome, and finding a healthy work-life balance as a developer.",
+    "image": "https://picsum.photos/seed/mentalhealth/600/400",
+    "category": "Lifestyle",
+    "author": "Amanda Nelson",
+    "authorAvatar": "https://i.pravatar.cc/150?u=20",
+    "date": "Oct 25, 2025",
+    "readTime": "6 min read"
+  },
+  {
+     
+    "title": "Git Workflow Best Practices",
+    "excerpt": "Mastering branching strategies, pull requests, and resolving merge conflicts efficiently.",
+    "image": "https://picsum.photos/seed/git/600/400",
+    "category": "Coding",
+    "author": "Jason Carter",
+    "authorAvatar": "https://i.pravatar.cc/150?u=21",
+    "date": "Oct 22, 2025",
+    "readTime": "5 min read"
+  },
+  {
+     
+    "title": "Blockchain Beyond Cryptocurrency",
+    "excerpt": "Smart contracts and decentralized apps (DApps): How blockchain is reshaping digital trust.",
+    "image": "https://picsum.photos/seed/blockchain/600/400",
+    "category": "Technology",
+    "author": "Rebecca Mitchell",
+    "authorAvatar": "https://i.pravatar.cc/150?u=22",
+    "date": "Oct 20, 2025",
+    "readTime": "9 min read"
+  },
+  {
+     
+    "title": "Understanding Kubernetes",
+    "excerpt": "Orchestrating containerized applications at scale. Key concepts: Pods, Services, and Deployments.",
+    "image": "https://picsum.photos/seed/k8s/600/400",
+    "category": "DevOps",
+    "author": "Jeffrey Roberts",
+    "authorAvatar": "https://i.pravatar.cc/150?u=23",
+    "date": "Oct 18, 2025",
+    "readTime": "11 min read"
+  },
+  {
+     
+    "title": "Figma for Developers",
+    "excerpt": "How to navigate Figma files, export assets, and inspect CSS to translate designs into code accurately.",
+    "image": "https://picsum.photos/seed/figma/600/400",
+    "category": "Design",
+    "author": "Kathleen Phillips",
+    "authorAvatar": "https://i.pravatar.cc/150?u=24",
+    "date": "Oct 15, 2025",
+    "readTime": "5 min read"
+  },
+  {
+     
+    "title": "Open Source Contributions",
+    "excerpt": "How to make your first PR to an open source project and give back to the developer community.",
+    "image": "https://picsum.photos/seed/opensource/600/400",
+    "category": "Community",
+    "author": "Gary Campbell",
+    "authorAvatar": "https://i.pravatar.cc/150?u=25",
+    "date": "Oct 12, 2025",
+    "readTime": "4 min read"
+  },
+  {
+     
+    "title": "The Evolution of Internet of Things",
+    "excerpt": "Connecting everyday devices to the internet. Protocols, security challenges, and future trends.",
+    "image": "https://picsum.photos/seed/iot/600/400",
+    "category": "Technology",
+    "author": "Angela Parker",
+    "authorAvatar": "https://i.pravatar.cc/150?u=26",
+    "date": "Oct 10, 2025",
+    "readTime": "7 min read"
+  }
+]
